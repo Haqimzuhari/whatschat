@@ -22,6 +22,7 @@ Last commit  : (none — project not yet initialised)
 Docker status: not set up
 App status   : not started
 Blocking item: none
+Docs status  : complete — README, agents/, progress/, features/, hotfixes/, general/ all in place
 ```
 
 ---
@@ -29,12 +30,41 @@ Blocking item: none
 ## Current session
 
 ```
-Date         : YYYY-MM-DD
-Agent/person : 
-Goal         : 
-In-flight    : 
-Blocked by   : 
-Next step    : 
+Date         : 2026-05-16
+Agent/person : AGT-000 → AGT-003 — Project Coordinator → DevOps Engineer
+Goal         : Set up branching strategy (GEN-007) and Docker scaffold (GEN-001)
+In-flight    : GEN-007, GEN-001
+Blocked by   : (none)
+Next step    : AGT-003 executes GEN-007 then GEN-001; AGT-001 joins for Vite + Tailwind config
+```
+
+---
+
+## Delegation — 2026-05-16
+
+```
+Delegating to : AGT-003 — DevOps Engineer
+Session goal  : Bootstrap the project infrastructure so app development can begin
+Entry refs    : GEN-007, GEN-001, GEN-002
+CC            : AGT-001 — Architect (Vite + Tailwind config during scaffold step)
+
+Instructions  :
+  1. GEN-007 — Initialise git repo, create master + development branches, document
+               naming conventions, set branch protection rules on master.
+
+  2. GEN-001 — Write docker-compose.scaffold.yml using node:20-alpine. Run the
+               scaffolder to generate the Vue 3 + Vite project in the host directory.
+               Hand off to AGT-001 to configure vite.config.js and Tailwind.
+
+  3. GEN-002 — Replace scaffold compose with docker-compose.yml (dev, hot-reload,
+               port 5173). Confirm `docker compose up` starts the dev server.
+               Verify src/ hot-reload works before closing this step.
+
+  Success criteria:
+  - `git log` shows initial commit on master, development branch exists
+  - `docker compose up` starts Vite dev server on localhost:5173
+  - Tailwind and Inter font are wired up (AGT-001 confirms)
+  - GEN-007, GEN-001, GEN-002 entries updated to in-progress / complete
 ```
 
 ---
@@ -66,9 +96,9 @@ TEMPLATE — copy this block when archiving a session:
 
 | Milestone | Target | Status | Notes |
 |-----------|--------|--------|-------|
-| Docker scaffold (Phase 1) | — | not started | node:20-alpine, vue project init |
-| Docker dev environment (Phase 2) | — | not started | hot-reload, compose up |
-| Vue app skeleton | — | not started | Vite + Tailwind + Inter |
+| Docker scaffold (Phase 1) | 2026-05-16 | in progress | AGT-003 — GEN-001 |
+| Docker dev environment (Phase 2) | 2026-05-16 | in progress | AGT-003 — GEN-002 |
+| Vue app skeleton | — | blocked | waiting on GEN-001 + GEN-002 |
 | Country dropdown | — | not started | FEAT-001 |
 | Phone input + sanitiser | — | not started | FEAT-002 |
 | Link generator | — | not started | FEAT-003 |
