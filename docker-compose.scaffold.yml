@@ -1,0 +1,17 @@
+services:
+  scaffold:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: >
+      sh -c "
+        cd /tmp && npm create vite@latest vite-app -- --template vue &&
+        cp -r /tmp/vite-app/src /app/ &&
+        cp -r /tmp/vite-app/public /app/ &&
+        cp /tmp/vite-app/index.html /app/ &&
+        cp /tmp/vite-app/package.json /app/ &&
+        cp /tmp/vite-app/vite.config.js /app/ &&
+        cp /tmp/vite-app/.gitignore /app/ &&
+        echo 'Scaffold complete.'
+      "
