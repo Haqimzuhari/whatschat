@@ -74,10 +74,10 @@ What changed.
 |------------|-------|
 | ID         | GEN-001 |
 | Category   | docker |
-| Status     | planned |
-| Agent      | Agent 3 — DevOps Engineer |
+| Status     | complete |
+| Agent      | AGT-003 — DevOps Engineer / AGT-001 — Architect |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-16 |
 | Related    | GEN-002 |
 
 ### Description
@@ -86,15 +86,19 @@ Bootstrap the Vue 3 project using Docker so no local Node.js install is required
 
 ### Steps
 
-- [ ] Write `docker-compose.scaffold.yml` with a one-off service that mounts the project root and runs the Vite scaffolder
-- [ ] Run `docker compose -f docker-compose.scaffold.yml run --rm scaffold`
-- [ ] Confirm `src/`, `vite.config.js`, `package.json` are generated in the host directory
-- [ ] Install Tailwind CSS and configure `tailwind.config.js` inside the container
-- [ ] Add Inter font via Google Fonts import in `index.html`
+- [x] Write `docker-compose.scaffold.yml` with a one-off service that mounts the project root and runs the Vite scaffolder
+- [x] Run `docker compose -f docker-compose.scaffold.yml run --rm scaffold`
+- [x] Confirm `src/`, `vite.config.js`, `package.json` are generated in the host directory
+- [x] Install Tailwind CSS and configure `tailwind.config.js` inside the container
+- [x] Add Inter font via Google Fonts import in `index.html`
 
 ### Notes
 
 This is a one-time step. After scaffold, switch to GEN-002 for the ongoing dev compose file.
+
+### Update 2026-05-16
+
+Scaffolded Vue 3 + Vite project via `docker-compose.scaffold.yml` using `node:20-alpine`. Generated `src/`, `public/`, `index.html`, `package.json`, `vite.config.js`, `.gitignore` on the host without overwriting existing docs. AGT-001 installed Tailwind CSS v3 + PostCSS + Autoprefixer via Docker, configured `tailwind.config.js` with `darkMode: 'class'`, content paths, and Inter font family. Replaced Vite default `src/style.css` with Tailwind directives. Added Inter Google Fonts import and updated page title to "WhatsChat" in `index.html`.
 
 ---
 
