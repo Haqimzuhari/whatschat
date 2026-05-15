@@ -66,12 +66,12 @@ Every task, feature, fix, and agent has a unique ID. Cross-reference freely acro
 
 ### Protected branches
 
-| Branch | Purpose | Rule |
-|--------|---------|------|
-| `master` | Stable — auto-deploys to GitHub Pages | No direct push. PR from `development` only. CI must pass. |
-| `development` | Integration — all work lands here first | No direct push. PR from feature/chore/hotfix branches only. |
+| Branch | Purpose | Convention |
+|--------|---------|------------|
+| `master` | Stable — auto-deploys to GitHub Pages | Never push directly. PR from `development` only. |
+| `development` | Integration — all work lands here first | Never push directly. PR from feature/chore/hotfix branches only. |
 
-Direct pushes to `master` or `development` are blocked via GitHub branch protection rules. Everything goes through a PR, no exceptions.
+Direct pushes to `master` or `development` are forbidden by convention. Everything goes through a PR.
 
 ### Branch naming
 
@@ -135,15 +135,9 @@ When `development` is stable and ready to ship:
 3. Merge — GitHub Actions auto-deploys to GitHub Pages
 ```
 
-### Setting up branch protection (owner only)
+### Branch protection
 
-GitHub repo → **Settings** → **Branches** → **Add branch ruleset**
-
-Apply to both `master` and `development`:
-- ✅ Require a pull request before merging
-- ✅ Block force pushes
-- ✅ Require status checks to pass before merging (add once CI is set up in GEN-003)
-- ❌ Require approvals (leave off for solo work — you approve your own PRs)
+GitHub branch protection rules require a paid plan for private repos. Protection is enforced by convention instead — no agent or contributor should ever push directly to `master` or `development`. If the repo is made public in future, classic branch protection rules can be enabled for free.
 
 ---
 
