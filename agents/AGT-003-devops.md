@@ -37,7 +37,50 @@ Own all infrastructure that is not hosting. This covers Docker setup (dev and pr
 
 ---
 
-## Branch naming
+## Git workflow
+
+`master` and `development` are protected — no direct pushes ever. Every change goes through a PR.
+
+### Standard workflow (feature / chore)
+
+```
+1. Always start from an up-to-date development
+   git checkout development
+   git pull origin development
+
+2. Create a branch
+   git checkout -b chore/GEN-NNN-short-slug
+
+3. Do the work — commit in logical chunks
+   git add <specific files>
+   git commit -m "chore(GEN-NNN): description"
+
+4. Push the branch
+   git push -u origin chore/GEN-NNN-short-slug
+
+5. Open a PR on GitHub
+   Base: development  ←  Compare: chore/GEN-NNN-short-slug
+
+6. Merge the PR on GitHub — delete branch after merge
+
+7. Pull development locally
+   git checkout development
+   git pull origin development
+   git branch -d chore/GEN-NNN-short-slug
+```
+
+### Hotfix workflow
+
+```
+1. git checkout master && git pull origin master
+2. git checkout -b hotfix/HF-NNN-short-slug
+3. Fix, commit, push
+4. PR → master, merge
+5. PR → development, merge (keep in sync)
+6. Delete hotfix branch
+```
+
+### Branch naming
 
 | Type | Pattern |
 |------|---------|
@@ -46,13 +89,11 @@ Own all infrastructure that is not hosting. This covers Docker setup (dev and pr
 | Infra/chore | `chore/GEN-NNN-short-slug` |
 | Release | `release/v0.x.x` |
 
-Flow: `feature/*` → `development` → PR → `master` → auto-deploy.
-Hotfixes branch off `master` and merge back to both `master` and `development`.
-
 ---
 
 ## Rules
 
+- Never push directly to `master` or `development` — always PR
 - Never commit secrets — use GitHub repo secrets and env vars in CI
 - All CI jobs must pass before the deploy job runs
 - Document every `docker compose` command that agents or users need to run

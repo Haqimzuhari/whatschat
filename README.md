@@ -64,22 +64,86 @@ Every task, feature, fix, and agent has a unique ID. Cross-reference freely acro
 
 ## Branching strategy
 
-| Branch | Purpose |
-|--------|---------|
-| `master` | Stable — auto-deploys to GitHub Pages. Protected: PR + passing CI required. |
-| `development` | Active development — all feature branches merge here first. |
+### Protected branches
 
-**Branch naming:**
+| Branch | Purpose | Rule |
+|--------|---------|------|
+| `master` | Stable — auto-deploys to GitHub Pages | No direct push. PR from `development` only. CI must pass. |
+| `development` | Integration — all work lands here first | No direct push. PR from feature/chore/hotfix branches only. |
 
-| Type | Pattern |
-|------|---------|
-| Feature | `feature/FEAT-NNN-short-slug` |
-| Hotfix | `hotfix/HF-NNN-short-slug` |
-| Infra / chore | `chore/GEN-NNN-short-slug` |
-| Release | `release/v0.x.x` |
+Direct pushes to `master` or `development` are blocked via GitHub branch protection rules. Everything goes through a PR, no exceptions.
 
-**Flow:** `feature/*` → `development` → PR → `master` → auto-deploy to Pages.
-Hotfixes branch off `master` and merge back to both `master` and `development`.
+### Branch naming
+
+| Type | Pattern | Example |
+|------|---------|---------|
+| Feature | `feature/FEAT-NNN-short-slug` | `feature/FEAT-001-country-dropdown` |
+| Hotfix | `hotfix/HF-NNN-short-slug` | `hotfix/HF-001-phone-sanitiser` |
+| Infra / chore | `chore/GEN-NNN-short-slug` | `chore/GEN-002-docker-dev` |
+| Release | `release/v0.x.x` | `release/v1.0.0` |
+
+### Full workflow
+
+```
+1. Branch off development
+   git checkout development
+   git pull origin development
+   git checkout -b feature/FEAT-NNN-short-slug
+
+2. Do the work — commit as you go
+   git add <files>
+   git commit -m "feat(FEAT-NNN): description"
+
+3. Push branch to GitHub
+   git push -u origin feature/FEAT-NNN-short-slug
+
+4. Open a Pull Request on GitHub
+   Base: development  ←  Compare: feature/FEAT-NNN-short-slug
+   Title: follows commit message convention
+   Review the diff, confirm it looks right
+
+5. Merge the PR on GitHub
+   Use "Squash and merge" or "Merge commit" — be consistent
+   Delete the branch after merge (GitHub offers this automatically)
+
+6. Pull development locally
+   git checkout development
+   git pull origin development
+   git branch -d feature/FEAT-NNN-short-slug  (delete local branch)
+```
+
+### Hotfix workflow
+
+Hotfixes are urgent — they branch off `master`, not `development`:
+
+```
+1. git checkout master && git pull origin master
+2. git checkout -b hotfix/HF-NNN-short-slug
+3. Fix, commit, push
+4. PR → master (merge immediately)
+5. PR → development (keep them in sync)
+6. Delete hotfix branch
+```
+
+### Releasing to production
+
+When `development` is stable and ready to ship:
+
+```
+1. Open a PR: development → master
+2. Review, confirm CI passes
+3. Merge — GitHub Actions auto-deploys to GitHub Pages
+```
+
+### Setting up branch protection (owner only)
+
+GitHub repo → **Settings** → **Branches** → **Add branch ruleset**
+
+Apply to both `master` and `development`:
+- ✅ Require a pull request before merging
+- ✅ Block force pushes
+- ✅ Require status checks to pass before merging (add once CI is set up in GEN-003)
+- ❌ Require approvals (leave off for solo work — you approve your own PRs)
 
 ---
 
@@ -131,10 +195,10 @@ Hotfixes branch off `master` and merge back to both `master` and `development`.
 
 | ID | Task | Status |
 |----|------|--------|
-| GEN-001 | Docker Phase 1 — scaffold | planned |
-| GEN-002 | Docker Phase 2 — dev/prod compose | planned |
-| GEN-003 | GitHub Actions CI/CD | planned |
-| GEN-004 | GitHub Pages deployment | planned |
-| GEN-005 | Vitest unit + component tests | planned |
-| GEN-006 | Playwright E2E tests | planned |
-| GEN-007 | Git branching strategy | planned |
+| GEN-001 | Docker Phase 1 — scaffold | complete |
+| GEN-002 | Docker Phase 2 — dev/prod compose | not started |
+| GEN-003 | GitHub Actions CI/CD | not started |
+| GEN-004 | GitHub Pages deployment | not started |
+| GEN-005 | Vitest unit + component tests | not started |
+| GEN-006 | Playwright E2E tests | not started |
+| GEN-007 | Git branching strategy | complete |
