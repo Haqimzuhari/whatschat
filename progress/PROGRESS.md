@@ -17,12 +17,12 @@
 ## Last known state
 
 ```
-Branch       : master
-Last commit  : (none — project not yet initialised)
-Docker status: not set up
-App status   : not started
-Blocking item: none
-Docs status  : complete — README, agents/, progress/, features/, hotfixes/, general/ all in place
+Branch       : chore/GEN-001-docker-scaffold (open PR → development)
+Last commit  : a724509 — GEN-001 scaffold complete
+Docker status: scaffold done (docker-compose.scaffold.yml); dev compose not yet written (GEN-002)
+App status   : scaffolded — Vue 3 + Vite + Tailwind v3 + Inter in place, not yet running
+Blocking item: GEN-001 PR needs merging → development before GEN-002 starts
+Docs status  : complete
 ```
 
 ---
@@ -31,11 +31,12 @@ Docs status  : complete — README, agents/, progress/, features/, hotfixes/, ge
 
 ```
 Date         : 2026-05-16
-Agent/person : AGT-000 → AGT-003 — Project Coordinator → DevOps Engineer
+Agent/person : AGT-000 → AGT-003 + AGT-001
 Goal         : Set up branching strategy (GEN-007) and Docker scaffold (GEN-001)
-In-flight    : GEN-007, GEN-001
-Blocked by   : (none)
-Next step    : AGT-003 executes GEN-007 then GEN-001; AGT-001 joins for Vite + Tailwind config
+In-flight    : GEN-002 (next)
+Completed    : GEN-007 (branching), GEN-001 (scaffold + Tailwind + Inter)
+Blocked by   : GEN-001 PR merge (manual — raise PR on GitHub)
+Next step    : Merge chore/GEN-001-docker-scaffold → development, then start GEN-002
 ```
 
 ---
@@ -96,9 +97,9 @@ TEMPLATE — copy this block when archiving a session:
 
 | Milestone | Target | Status | Notes |
 |-----------|--------|--------|-------|
-| Docker scaffold (Phase 1) | 2026-05-16 | in progress | AGT-003 — GEN-001 |
-| Docker dev environment (Phase 2) | 2026-05-16 | in progress | AGT-003 — GEN-002 |
-| Vue app skeleton | — | blocked | waiting on GEN-001 + GEN-002 |
+| Docker scaffold (Phase 1) | 2026-05-16 | complete | GEN-001 — PR open, pending merge |
+| Docker dev environment (Phase 2) | — | not started | GEN-002 — starts after GEN-001 merge |
+| Vue app skeleton | — | blocked | waiting on GEN-002 |
 | Country dropdown | — | not started | FEAT-001 |
 | Phone input + sanitiser | — | not started | FEAT-002 |
 | Link generator | — | not started | FEAT-003 |
