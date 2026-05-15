@@ -62,6 +62,27 @@ Every task, feature, fix, and agent has a unique ID. Cross-reference freely acro
 
 ---
 
+## Branching strategy
+
+| Branch | Purpose |
+|--------|---------|
+| `master` | Stable — auto-deploys to GitHub Pages. Protected: PR + passing CI required. |
+| `development` | Active development — all feature branches merge here first. |
+
+**Branch naming:**
+
+| Type | Pattern |
+|------|---------|
+| Feature | `feature/FEAT-NNN-short-slug` |
+| Hotfix | `hotfix/HF-NNN-short-slug` |
+| Infra / chore | `chore/GEN-NNN-short-slug` |
+| Release | `release/v0.x.x` |
+
+**Flow:** `feature/*` → `development` → PR → `master` → auto-deploy to Pages.
+Hotfixes branch off `master` and merge back to both `master` and `development`.
+
+---
+
 ## The one rule
 
 **Append, never overwrite.** To update any entry, add a dated block below it. This preserves full history and lets any agent or person resume a session with full context.

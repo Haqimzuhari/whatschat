@@ -256,10 +256,10 @@ Set up Playwright for end-to-end testing. Cover the main happy path (paste numbe
 |------------|-------|
 | ID         | GEN-007 |
 | Category   | ci-cd |
-| Status     | planned |
-| Agent      | Agent 3 — DevOps Engineer |
+| Status     | complete |
+| Agent      | AGT-003 — DevOps Engineer |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-16 |
 | Related    | GEN-003 |
 
 ### Description
@@ -268,10 +268,14 @@ Define and document the branching strategy so all agents and contributors follow
 
 ### Steps
 
-- [ ] Create `master` branch (stable, deploys to Pages)
-- [ ] Create `development` branch from master (active development)
-- [ ] Document branch naming conventions in `README.md`
-- [ ] Configure branch protection on `master`: require PR + passing CI before merge
+- [x] Create `master` branch (stable, deploys to Pages)
+- [x] Create `development` branch from master (active development)
+- [x] Document branch naming conventions in `README.md`
+- [ ] Configure branch protection on `master`: require PR + passing CI before merge — **manual step: set in GitHub repo Settings → Branches**
+
+### Update 2026-05-16
+
+`master` branch confirmed on remote. `development` branch created from master and pushed to `origin/development`. Branch naming conventions documented in README.md. Branch protection on `master` cannot be set via CLI (gh not installed) — must be configured manually in GitHub → Settings → Branches → Add rule: require PR review + status checks before merge.
 
 ### Notes
 
