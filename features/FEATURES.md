@@ -84,6 +84,10 @@ A searchable dropdown that lists all countries with their dial codes. Auto-selec
 
 Use the browser `Intl.DisplayNames` API to generate country names. Store dial code data as a static JSON array bundled with the app (no external API call at runtime). Dropdown built as a Vue component with `<input>` for search and a `<ul>` for results.
 
+### Update 2026-05-16
+
+ADR-001 confirms: country + dial code data must be bundled as a static JSON file — no external API call. Chosen approach is safe on GitHub Pages with zero CORS risk. AGT-002 to source or author the static dataset before implementing the dropdown component.
+
 ---
 
 ## FEAT-002 — Phone number input and sanitiser
@@ -297,3 +301,7 @@ On page load, detect the user's country and auto-select the matching entry in th
 ### Implementation notes
 
 Strategy: call `ipapi.co/json/` (HTTPS, CORS-open, free, no key for low volume) on load to get country code. Map the ISO 3166-1 alpha-2 code to the dial code list. The browser geolocation API requires user permission and is slower, so IP lookup is the primary path — it's good enough for this use case.
+
+### Update 2026-05-16
+
+ADR-001 confirms: `ipapi.co` is the approved geolocation provider. Browser `navigator.geolocation` is dropped as primary path — adds permission prompt and requires a second reverse-geocoding API call. `ip-api.com` ruled out (HTTP-only free tier, blocked as mixed content on GitHub Pages HTTPS). Fallback chain: `ipapi.co` → no selection (user picks manually).
