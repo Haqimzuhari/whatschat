@@ -60,12 +60,16 @@ Apply all five updates in the same commit where possible.
 
 ## Commit rules
 
-| Change type | Branch required? | How |
-|-------------|-----------------|-----|
-| Feature / infra / hotfix | Yes | Branch off `development`, open PR |
-| Pure doc / progress updates | No | Commit directly to `development` |
+| Change type | Branch prefix | Example |
+|-------------|--------------|---------|
+| Feature | `feature/FEAT-NNN-short-slug` | `feature/FEAT-006-dark-light-mode` |
+| Infra / chore | `chore/GEN-NNN-short-slug` | `chore/GEN-003-ci-cd` |
+| Hotfix | `hotfix/HF-NNN-short-slug` | `hotfix/HF-001-phone-sanitiser` |
+| Docs / progress | `docs/short-slug` | `docs/session-close` |
+| Config changes | `config/short-slug` | `config/vite-base-path` |
+| Release | `release/v0.x.x` | `release/v1.0.0` |
 
-"Pure doc / progress updates" means changes only to: `progress/PROGRESS.md`, `general/GENERAL.md`, `features/FEATURES.md`, `hotfixes/HOTFIXES.md`, `agents/*.md`, `PROJECT.md`, `README.md`. No source code, no config, no Docker files.
+All changes go through a PR into `development`. No direct pushes — branch protection is enforced on GitHub.
 
 ---
 
@@ -75,4 +79,4 @@ Apply all five updates in the same commit where possible.
 - Always read PROGRESS.md before issuing any delegation
 - Always run the progress update workflow at the end of every session
 - Cross-reference IDs in every delegation block
-- Pure doc/progress commits go directly to `development` — no branch needed
+- All commits require a branch and PR — no exceptions (branch protection is active)

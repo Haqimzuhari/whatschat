@@ -88,7 +88,7 @@ Every task, feature, fix, and agent has a unique ID. Cross-reference freely acro
 | `master` | Stable — auto-deploys to GitHub Pages | Never push directly. PR from `development` only. |
 | `development` | Integration — all work lands here first | Never push directly. PR from feature/chore/hotfix branches only. |
 
-Direct pushes to `master` or `development` are forbidden by convention. Everything goes through a PR.
+Direct pushes to `master` or `development` are enforced by GitHub branch protection rules. Everything goes through a PR.
 
 ### Branch naming
 
@@ -97,6 +97,8 @@ Direct pushes to `master` or `development` are forbidden by convention. Everythi
 | Feature | `feature/FEAT-NNN-short-slug` | `feature/FEAT-001-country-dropdown` |
 | Hotfix | `hotfix/HF-NNN-short-slug` | `hotfix/HF-001-phone-sanitiser` |
 | Infra / chore | `chore/GEN-NNN-short-slug` | `chore/GEN-002-docker-dev` |
+| Docs / progress | `docs/short-slug` | `docs/GEN-007-branch-protection-active` |
+| Config changes | `config/short-slug` | `config/vite-base-path` |
 | Release | `release/v0.x.x` | `release/v1.0.0` |
 
 ### Full workflow
@@ -156,9 +158,9 @@ When `development` is stable and ready to ship:
 
 GitHub branch protection rules require a paid plan for private repos. Protection is enforced by convention instead — no agent or contributor should ever push directly to `master` or `development`. If the repo is made public in future, classic branch protection rules can be enabled for free.
 
-### Exception — pure doc and progress updates
+### Docs and progress updates
 
-Doc-only changes may be committed directly to `development` without a branch or PR. This applies only when **all** changed files are within:
+Use a `docs/` branch for any change limited to documentation and progress files:
 
 - `progress/PROGRESS.md`
 - `general/GENERAL.md`
@@ -168,7 +170,9 @@ Doc-only changes may be committed directly to `development` without a branch or 
 - `PROJECT.md`
 - `README.md`
 
-No source code, config, Docker, or CI files. If in doubt, use a branch.
+Use a `config/` branch for changes to config files only (`vite.config.js`, `tailwind.config.js`, `postcss.config.js`, `docker-compose*.yml`).
+
+No direct pushes to `master` or `development` — branch protection enforces this.
 
 ---
 
