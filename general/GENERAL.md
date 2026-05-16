@@ -108,10 +108,10 @@ Scaffolded Vue 3 + Vite project via `docker-compose.scaffold.yml` using `node:20
 |------------|-------|
 | ID         | GEN-002 |
 | Category   | docker |
-| Status     | planned |
-| Agent      | Agent 3 — DevOps Engineer |
+| Status     | complete |
+| Agent      | AGT-003 — DevOps Engineer |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-16 |
 | Related    | GEN-001, GEN-003 |
 
 ### Description
@@ -120,15 +120,21 @@ Replace the scaffold compose with a proper development and production setup. Dev
 
 ### Steps
 
-- [ ] Write `docker-compose.yml` with a `dev` service (hot-reload, port 5173)
-- [ ] Write `docker-compose.prod.yml` with a `build` service that outputs `dist/`
-- [ ] Confirm `docker compose up` starts the dev server correctly
-- [ ] Confirm `docker compose -f docker-compose.prod.yml run --rm build` produces `dist/index.html`
+- [x] Write `docker-compose.yml` with a `dev` service (hot-reload, port 5173)
+- [x] Write `docker-compose.prod.yml` with a `build` service that outputs `dist/`
+- [x] Confirm `docker compose up` starts the dev server correctly
+- [x] Confirm `docker compose -f docker-compose.prod.yml run --rm build` produces `dist/index.html`
 - [ ] Document both commands in `README.md`
 
 ### Notes
 
 Always use `docker compose` (v2 syntax) not `docker-compose` (v1). The prod compose is for local verification only — actual deployment is handled by GitHub Actions (GEN-003).
+
+A named `node_modules` volume is used in both compose files so the container maintains its own Linux-compatible `node_modules` while host source files are live-mounted for hot-reload.
+
+### Update 2026-05-16
+
+Written `docker-compose.yml` (dev service, `node:20-alpine`, port 5173, named `node_modules` volume, `npm install && npm run dev -- --host`) and `docker-compose.prod.yml` (build service, same image, `npm install && npm run build`). Verified: `docker compose up` returns HTTP 200 on `localhost:5173`. Prod build outputs `dist/index.html` (62.90 kB JS, 3.53 kB CSS). Tailwind "no utility classes" warning is expected — no feature components written yet.
 
 ---
 

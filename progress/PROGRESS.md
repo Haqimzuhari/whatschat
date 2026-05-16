@@ -17,13 +17,14 @@
 ## Last known state
 
 ```
-Branch       : development (clean, up to date with master)
-Last commit  : be19c85 — PR workflow documented in README + AGT-003
-Docker status: scaffold done (docker-compose.scaffold.yml); dev compose not yet written
-App status   : scaffolded — Vue 3 + Vite + Tailwind v3 + Inter in place, not yet running
+Branch       : development (chore/GEN-002-docker-dev open as PR — not yet merged)
+Last commit  : a1328a9 — docker-compose.yml + docker-compose.prod.yml added
+Docker status: dev compose done (port 5173, hot-reload, verified HTTP 200); prod compose done (dist/ verified)
+App status   : running — docker compose up serves app on localhost:5173
 Blocking item: none
 Docs status  : complete
-GitHub repo  : git@github.com:Haqimzuhari/whatschat.git (recreated after accidental delete)
+GitHub repo  : git@github.com:Haqimzuhari/whatschat.git
+Next step    : merge PR chore/GEN-002-docker-dev → development, then start FEAT-001 or GEN-003
 ```
 
 ---
@@ -44,6 +45,20 @@ Next step    : —
 ## Session history
 
 <!-- Oldest at the bottom, newest at the top -->
+
+### 2026-05-16 (session 2)
+
+| Field        | Value |
+|--------------|-------|
+| Agent/person | AGT-000 → AGT-003 |
+| Branch       | chore/GEN-002-docker-dev (PR open, not yet merged) |
+| Goal         | GEN-002 — Docker dev and prod compose files |
+| Completed    | docker-compose.yml (dev, hot-reload, port 5173), docker-compose.prod.yml (build, dist/ output), GENERAL.md GEN-002 marked complete |
+| Left off at  | PR open: chore/GEN-002-docker-dev → development. Dev server verified HTTP 200 on localhost:5173. Prod build produces dist/index.html. |
+| Next step    | Merge PR on GitHub, pull development, then FEAT-001 (country dropdown) or GEN-003 (CI/CD) |
+| Related      | GEN-002, GEN-001 |
+
+---
 
 ### 2026-05-16
 
@@ -88,8 +103,8 @@ TEMPLATE — copy this block when archiving a session:
 |-----------|--------|--------|-------|
 | Git + branching strategy | 2026-05-16 | complete | GEN-007 — PR workflow documented |
 | Docker scaffold (Phase 1) | 2026-05-16 | complete | GEN-001 — Vue 3 + Vite + Tailwind + Inter |
-| Docker dev environment (Phase 2) | — | not started | GEN-002 — next action |
-| Vue app skeleton | — | blocked | waiting on GEN-002 |
+| Docker dev environment (Phase 2) | 2026-05-16 | complete | GEN-002 — dev + prod compose verified |
+| Vue app skeleton | — | unblocked | docker compose up confirmed working |
 | Country dropdown | — | not started | FEAT-001 |
 | Phone input + sanitiser | — | not started | FEAT-002 |
 | Link generator | — | not started | FEAT-003 |
