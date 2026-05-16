@@ -2,15 +2,22 @@
 import { ref, computed } from 'vue'
 import CountryDropdown from './components/CountryDropdown.vue'
 import PhoneInput from './components/PhoneInput.vue'
-import { hasLetters } from './utils/phoneUtils.js'
+import { sanitisePhone, hasLetters } from './utils/phoneUtils.js'
+import { buildLink } from './utils/linkUtils.js'
 
 const selectedCountry = ref(null)
 const rawPhone = ref('')
+const generatedLink = ref('')
 
 const phoneError = computed(() => {
   if (hasLetters(rawPhone.value)) return 'Phone number must contain digits only'
   return ''
 })
+
+function generate() {
+  const clean = sanitisePhone(rawPhone.value, selectedCountry.value?.dialCode)
+  generatedLink.value = buildLink(selectedCountry.value?.dialCode, clean)
+}
 </script>
 
 <template>
@@ -23,6 +30,19 @@ const phoneError = computed(() => {
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 space-y-4">
         <CountryDropdown v-model="selectedCountry" />
         <PhoneInput v-model="rawPhone" :error="phoneError" />
+
+        <button
+          type="button"
+          @click="generate"
+          class="w-full py-2.5 px-4 rounded-lg bg-green-500 hover:bg-green-600 active:bg-green-700 text-white text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+        >
+          Generate link
+        </button>
+
+        <div v-if="generatedLink" class="rounded-lg border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 p-3">
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Generated link</p>
+          <p class="text-sm font-mono text-gray-900 dark:text-white break-all">{{ generatedLink }}</p>
+        </div>
       </div>
     </div>
   </div>
