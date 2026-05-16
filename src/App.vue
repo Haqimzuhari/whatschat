@@ -2,13 +2,17 @@
 import { ref, computed } from 'vue'
 import CountryDropdown from './components/CountryDropdown.vue'
 import PhoneInput from './components/PhoneInput.vue'
+import ToastContainer from './components/ToastContainer.vue'
 import { sanitisePhone, hasLetters } from './utils/phoneUtils.js'
 import { buildLink } from './utils/linkUtils.js'
+import { useToast } from './composables/useToast.js'
 
 const selectedCountry = ref(null)
 const rawPhone = ref('')
 const generatedLink = ref('')
 const copyLabel = ref('Copy link')
+
+const { toasts, addToast, dismissToast } = useToast()
 
 const phoneError = computed(() => {
   if (hasLetters(rawPhone.value)) return 'Phone number must contain digits only'
@@ -16,8 +20,24 @@ const phoneError = computed(() => {
 })
 
 function generate() {
-  const clean = sanitisePhone(rawPhone.value, selectedCountry.value?.dialCode)
-  generatedLink.value = buildLink(selectedCountry.value?.dialCode, clean)
+  if (!selectedCountry.value) {
+    addToast('Please select a country first')
+    return
+  }
+  if (!rawPhone.value.trim()) {
+    addToast('Please enter a phone number')
+    return
+  }
+  if (phoneError.value) {
+    addToast('Fix the phone number before generating')
+    return
+  }
+  const clean = sanitisePhone(rawPhone.value, selectedCountry.value.dialCode)
+  if (!clean) {
+    addToast('Phone number is too short — please check and try again')
+    return
+  }
+  generatedLink.value = buildLink(selectedCountry.value.dialCode, clean)
   copyLabel.value = 'Copy link'
 }
 
@@ -84,5 +104,7 @@ function openLink() {
         </div>
       </div>
     </div>
+
+    <ToastContainer :toasts="toasts" @dismiss="dismissToast" />
   </div>
 </template>
