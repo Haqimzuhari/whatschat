@@ -31,12 +31,12 @@ GitHub repo  : git@github.com:Haqimzuhari/whatschat.git (recreated after acciden
 ## Current session
 
 ```
-Date         : —
-Agent/person : —
-Goal         : —
-In-flight    : —
+Date         : 2026-05-16
+Agent/person : AGT-000 → AGT-003
+Goal         : GEN-002 — Docker dev and prod compose files
+In-flight    : chore/GEN-002-docker-dev
 Blocked by   : —
-Next step    : —
+Next step    : confirm docker compose up starts dev server on port 5173
 ```
 
 ---
