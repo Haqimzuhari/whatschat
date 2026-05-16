@@ -156,6 +156,19 @@ When `development` is stable and ready to ship:
 
 GitHub branch protection rules require a paid plan for private repos. Protection is enforced by convention instead — no agent or contributor should ever push directly to `master` or `development`. If the repo is made public in future, classic branch protection rules can be enabled for free.
 
+### Exception — pure doc and progress updates
+
+Doc-only changes may be committed directly to `development` without a branch or PR. This applies only when **all** changed files are within:
+
+- `progress/PROGRESS.md`
+- `general/GENERAL.md`
+- `features/FEATURES.md`
+- `hotfixes/HOTFIXES.md`
+- `agents/*.md`
+- `README.md`
+
+No source code, config, Docker, or CI files. If in doubt, use a branch.
+
 ---
 
 ## The one rule
