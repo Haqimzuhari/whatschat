@@ -60,9 +60,9 @@ What changed and why.
 |------------|-------|
 | ID         | FEAT-001 |
 | Title      | Country dropdown with search |
-| Status     | planned |
+| Status     | in-progress |
 | Branch     | feature/FEAT-001-country-dropdown |
-| Agent      | Agent 2 — Frontend Developer |
+| Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
 | Updated    | 2024-01-01 |
 | Depends on | — |
@@ -88,6 +88,10 @@ Use the browser `Intl.DisplayNames` API to generate country names. Store dial co
 
 ADR-001 confirms: country + dial code data must be bundled as a static JSON file — no external API call. Chosen approach is safe on GitHub Pages with zero CORS risk. AGT-002 to source or author the static dataset before implementing the dropdown component.
 
+### Update 2026-05-16 (implemented)
+
+Implemented in `feature/FEAT-001-country-dropdown`. Files: `src/data/countries.js` (195 entries), `src/utils/countryUtils.js` (buildCountryList, filterCountries), `src/components/CountryDropdown.vue`. Country names via `Intl.DisplayNames`, flags via regional indicator codepoints. Search filters by name, dial code, ISO code. Keyboard nav: arrows, enter, escape. Click-outside closes. Dark + light mode. PR open — pending merge into development.
+
 ---
 
 ## FEAT-002 — Phone number input and sanitiser
@@ -96,9 +100,9 @@ ADR-001 confirms: country + dial code data must be bundled as a static JSON file
 |------------|-------|
 | ID         | FEAT-002 |
 | Title      | Phone number input and sanitiser |
-| Status     | planned |
+| Status     | in-progress |
 | Branch     | feature/FEAT-002-phone-input |
-| Agent      | Agent 2 — Frontend Developer |
+| Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
 | Updated    | 2024-01-01 |
 | Depends on | FEAT-001 |
@@ -121,6 +125,10 @@ A text input that accepts any phone number format a user might paste or type —
 
 Use a `@input` handler that runs a regex replace `/[^0-9]/g` to strip non-digits. Then strip leading `0` (trunk prefix) before concatenating with the dial code. Edge case: if the pasted number starts with the dial code (e.g. user pastes `60123456789` with Malaysia selected), detect and strip the duplicate prefix.
 
+### Update 2026-05-16 (implemented)
+
+Implemented in `feature/FEAT-002-phone-input` (stacked on FEAT-001). Files: `src/utils/phoneUtils.js` (sanitisePhone, hasLetters), `src/components/PhoneInput.vue`. Live inline error on letter detection; red border via computed phoneError. PR open — pending merge.
+
 ---
 
 ## FEAT-003 — WhatsApp link generator
@@ -129,9 +137,9 @@ Use a `@input` handler that runs a regex replace `/[^0-9]/g` to strip non-digits
 |------------|-------|
 | ID         | FEAT-003 |
 | Title      | WhatsApp link generator |
-| Status     | planned |
+| Status     | in-progress |
 | Branch     | feature/FEAT-003-link-generator |
-| Agent      | Agent 2 — Frontend Developer |
+| Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
 | Updated    | 2024-01-01 |
 | Depends on | FEAT-001, FEAT-002 |
@@ -152,6 +160,10 @@ Core business logic. Takes the selected dial code and sanitised phone number, as
 
 Link format: `https://wa.me/60123456789` — no `+`, no spaces, no dashes. The `wa.me` format is WhatsApp's official deep link; it opens the app on mobile and web.whatsapp.com on desktop.
 
+### Update 2026-05-16 (implemented)
+
+Implemented in `feature/FEAT-003-link-generator` (stacked on FEAT-002). Files: `src/utils/linkUtils.js` (buildLink). Generate button in App.vue calls sanitisePhone then buildLink. Result shown in read-only monospace block. PR open — pending merge.
+
 ---
 
 ## FEAT-004 — Copy and open-tab buttons
@@ -160,9 +172,9 @@ Link format: `https://wa.me/60123456789` — no `+`, no spaces, no dashes. The `
 |------------|-------|
 | ID         | FEAT-004 |
 | Title      | Copy link and open-in-new-tab buttons |
-| Status     | planned |
+| Status     | in-progress |
 | Branch     | feature/FEAT-004-copy-open |
-| Agent      | Agent 2 — Frontend Developer |
+| Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
 | Updated    | 2024-01-01 |
 | Depends on | FEAT-003 |
@@ -183,6 +195,10 @@ Two action buttons that appear after a link is generated: one copies the link to
 
 `navigator.clipboard` requires HTTPS or localhost — GitHub Pages satisfies this. For older browser fallback, use `document.execCommand('copy')` on a hidden textarea.
 
+### Update 2026-05-16 (implemented)
+
+Implemented in `feature/FEAT-004-copy-open` (stacked on FEAT-003). Copy uses navigator.clipboard with textarea execCommand fallback. Label reverts after 2s. Start chatting uses window.open with noopener. Both hidden until link generated. PR open — pending merge.
+
 ---
 
 ## FEAT-005 — Validation and toast notifications
@@ -191,9 +207,9 @@ Two action buttons that appear after a link is generated: one copies the link to
 |------------|-------|
 | ID         | FEAT-005 |
 | Title      | Inline validation and toast notifications |
-| Status     | planned |
+| Status     | in-progress |
 | Branch     | feature/FEAT-005-validation-toasts |
-| Agent      | Agent 2 — Frontend Developer |
+| Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
 | Updated    | 2024-01-01 |
 | Depends on | FEAT-001, FEAT-002 |
@@ -216,6 +232,10 @@ Two-tier error feedback. Inline validation shows a red hint message directly abo
 ### Implementation notes
 
 Inline errors use a `<p>` with `text-red-500 text-xs` rendered above each `<input>` — controlled by a reactive error string per field. Toast managed by a simple `ref([])` queue in a composable; each toast has an `id`, `message`, and a `setTimeout` cleanup.
+
+### Update 2026-05-16 (implemented)
+
+Implemented in `feature/FEAT-005-validation-toasts` (stacked on FEAT-004). Files: `src/composables/useToast.js`, `src/components/ToastContainer.vue`. generate() guards: no country, empty phone, letter error, empty sanitised result — each shows a toast. ToastContainer fixed bottom-center, stacks multiple toasts, auto-dismisses after 5s, manual dismiss via X button. PR open — pending merge.
 
 ---
 

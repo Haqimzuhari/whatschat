@@ -17,14 +17,14 @@
 ## Last known state
 
 ```
-Branch       : development (clean, all GEN-002 work committed)
-Last commit  : 82e9d49 — docker commands documented in README, GEN-002 fully closed
-Docker status: complete — docker compose up brings app up, viewable in browser at localhost:5173
-App status   : live in browser — default Vite + Vue scaffold visible
-Blocking item: none
-Docs status  : complete — README has "Running locally" section
+Branch       : development (clean) — 5 feature branches open as PRs, stacked, merge in order
+Last commit  : a4c7f54 — session open commit
+Feature PRs  : FEAT-001 → FEAT-002 → FEAT-003 → FEAT-004 → FEAT-005 (each stacked on previous)
+App status   : fully functional in browser on localhost:5173 — country dropdown, phone input, link generator, copy/open, toasts all working
+Blocking item: none — merge PRs in order on GitHub
+Docs status  : complete
 GitHub repo  : git@github.com:Haqimzuhari/whatschat.git
-Next step    : FEAT-001 (country dropdown) or GEN-003 (GitHub Actions CI/CD)
+Next step    : merge FEAT-001 PR first, then 002→003→004→005 in sequence. Then FEAT-006 (dark/light mode), FEAT-007 (responsive), FEAT-008 (geolocation)
 ```
 
 ---
@@ -32,12 +32,12 @@ Next step    : FEAT-001 (country dropdown) or GEN-003 (GitHub Actions CI/CD)
 ## Current session
 
 ```
-Date         : 2026-05-16
-Agent/person : AGT-000 → AGT-002
-Goal         : Implement FEAT-001 through FEAT-005
-In-flight    : FEAT-001 (country dropdown) — starting now
+Date         : —
+Agent/person : —
+Goal         : —
+In-flight    : —
 Blocked by   : —
-Next step    : branch feature/FEAT-001-country-dropdown, implement, PR → development
+Next step    : —
 ```
 
 ---
@@ -45,6 +45,20 @@ Next step    : branch feature/FEAT-001-country-dropdown, implement, PR → devel
 ## Session history
 
 <!-- Oldest at the bottom, newest at the top -->
+
+### 2026-05-16 (session 3)
+
+| Field        | Value |
+|--------------|-------|
+| Agent/person | AGT-000 → AGT-002 |
+| Branch       | feature/FEAT-001 through feature/FEAT-005 (stacked, all pushed, PRs open) |
+| Goal         | Implement FEAT-001 through FEAT-005 |
+| Completed    | FEAT-001 (country dropdown), FEAT-002 (phone input + sanitiser), FEAT-003 (link generator), FEAT-004 (copy + open tab), FEAT-005 (validation + toasts) |
+| Left off at  | All 5 branches pushed. Merge PRs on GitHub in order: 001 → 002 → 003 → 004 → 005. App fully functional on localhost:5173. |
+| Next step    | Merge PRs in order, then FEAT-006 (dark/light mode), FEAT-007 (responsive), FEAT-008 (geolocation) |
+| Related      | FEAT-001, FEAT-002, FEAT-003, FEAT-004, FEAT-005 |
+
+---
 
 ### 2026-05-16 (session 2)
 
@@ -105,11 +119,11 @@ TEMPLATE — copy this block when archiving a session:
 | Docker scaffold (Phase 1) | 2026-05-16 | complete | GEN-001 — Vue 3 + Vite + Tailwind + Inter |
 | Docker dev environment (Phase 2) | 2026-05-16 | complete | GEN-002 — dev + prod compose verified |
 | Vue app skeleton | 2026-05-16 | complete | app viewable in browser at localhost:5173 |
-| Country dropdown | — | not started | FEAT-001 |
-| Phone input + sanitiser | — | not started | FEAT-002 |
-| Link generator | — | not started | FEAT-003 |
-| Copy + open tab buttons | — | not started | FEAT-004 |
-| Validation + toasts | — | not started | FEAT-005 |
+| Country dropdown | 2026-05-16 | in-progress | FEAT-001 — PR open, pending merge |
+| Phone input + sanitiser | 2026-05-16 | in-progress | FEAT-002 — PR open, pending merge |
+| Link generator | 2026-05-16 | in-progress | FEAT-003 — PR open, pending merge |
+| Copy + open tab buttons | 2026-05-16 | in-progress | FEAT-004 — PR open, pending merge |
+| Validation + toasts | 2026-05-16 | in-progress | FEAT-005 — PR open, pending merge |
 | Dark/light mode | — | not started | FEAT-006 |
 | Responsive + mobile keyboard fix | — | not started | FEAT-007 |
 | Geolocation auto-select | — | not started | FEAT-008 |
