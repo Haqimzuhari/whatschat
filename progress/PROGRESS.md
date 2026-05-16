@@ -17,14 +17,14 @@
 ## Last known state
 
 ```
-Branch       : development (chore/GEN-002-docker-dev open as PR — not yet merged)
-Last commit  : a1328a9 — docker-compose.yml + docker-compose.prod.yml added
-Docker status: dev compose done (port 5173, hot-reload, verified HTTP 200); prod compose done (dist/ verified)
-App status   : running — docker compose up serves app on localhost:5173
+Branch       : development (clean, PR #2 merged — chore/GEN-002-docker-dev)
+Last commit  : 001fc98 — Merge pull request #2 from chore/GEN-002-docker-dev
+Docker status: docker-compose.yml (dev) + docker-compose.prod.yml (prod) both merged and verified
+App status   : running — docker compose up confirmed HTTP 200 on localhost:5173
 Blocking item: none
 Docs status  : complete
 GitHub repo  : git@github.com:Haqimzuhari/whatschat.git
-Next step    : merge PR chore/GEN-002-docker-dev → development, then start FEAT-001 or GEN-003
+Next step    : FEAT-001 (country dropdown) or GEN-003 (GitHub Actions CI/CD)
 ```
 
 ---

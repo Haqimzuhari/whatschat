@@ -4,6 +4,23 @@ Central knowledge base for the WhatsApp Link Generator project. Every decision, 
 
 ---
 
+## Running locally
+
+No local Node.js required — everything runs in Docker.
+
+**Dev server (hot-reload, port 5173):**
+```sh
+docker compose up
+```
+Open http://localhost:5173. Stop with `docker compose down`.
+
+**Production build (outputs `dist/`):**
+```sh
+docker compose -f docker-compose.prod.yml run --rm build
+```
+
+---
+
 ## Folder structure
 
 ```
