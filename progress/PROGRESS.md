@@ -17,14 +17,16 @@
 ## Last known state
 
 ```
-Branch       : development (clean) — 5 feature branches open as PRs, stacked, merge in order
-Last commit  : a4c7f54 — session open commit
-Feature PRs  : FEAT-001 → FEAT-002 → FEAT-003 → FEAT-004 → FEAT-005 (each stacked on previous)
-App status   : fully functional in browser on localhost:5173 — country dropdown, phone input, link generator, copy/open, toasts all working
+Branch       : development (clean) — 5 feature PRs open on feature/FEAT-005-validation-toasts (top of stack)
+Last commit  : 4f43fb8 — session 3 close
+Feature PRs  : FEAT-001 → FEAT-002 → FEAT-003 → FEAT-004 → FEAT-005 (stacked, merge in order)
+App status   : fully functional — verified in browser on localhost:5173
+UI polish    : toast top-center, red ring on error, green chat-bubble favicon
+FEAT status  : FEAT-002/003/004/005 complete. FEAT-001 in-progress (pending FEAT-008 + FEAT-006)
 Blocking item: none — merge PRs in order on GitHub
-Docs status  : complete
+Docs status  : complete — FEATURES.md criteria ticked and implementation notes added by AGT-002
 GitHub repo  : git@github.com:Haqimzuhari/whatschat.git
-Next step    : merge FEAT-001 PR first, then 002→003→004→005 in sequence. Then FEAT-006 (dark/light mode), FEAT-007 (responsive), FEAT-008 (geolocation)
+Next step    : merge PRs on GitHub (001→002→003→004→005), then FEAT-006 (dark/light mode)
 ```
 
 ---
@@ -45,6 +47,20 @@ Next step    : —
 ## Session history
 
 <!-- Oldest at the bottom, newest at the top -->
+
+### 2026-05-16 (session 4)
+
+| Field        | Value |
+|--------------|-------|
+| Agent/person | AGT-000 → AGT-002 |
+| Branch       | feature/FEAT-005-validation-toasts (top of stack) |
+| Goal         | UI refinements + FEATURES.md update by AGT-002 |
+| Completed    | Toast moved to top-center. PhoneInput ring turns red on error. Favicon replaced (Vite default → green chat bubble). FEATURES.md: acceptance criteria ticked, statuses updated, implementation blocks added for FEAT-001 to FEAT-005. |
+| Left off at  | All 5 PRs open. FEAT-002/003/004/005 complete. FEAT-001 in-progress (2 criteria pending: FEAT-008, FEAT-006). App verified working in browser. |
+| Next step    | Merge PRs on GitHub in order: 001→002→003→004→005. Then FEAT-006. |
+| Related      | FEAT-001, FEAT-002, FEAT-003, FEAT-004, FEAT-005 |
+
+---
 
 ### 2026-05-16 (session 3)
 
@@ -120,10 +136,10 @@ TEMPLATE — copy this block when archiving a session:
 | Docker dev environment (Phase 2) | 2026-05-16 | complete | GEN-002 — dev + prod compose verified |
 | Vue app skeleton | 2026-05-16 | complete | app viewable in browser at localhost:5173 |
 | Country dropdown | 2026-05-16 | in-progress | FEAT-001 — PR open, pending merge |
-| Phone input + sanitiser | 2026-05-16 | in-progress | FEAT-002 — PR open, pending merge |
-| Link generator | 2026-05-16 | in-progress | FEAT-003 — PR open, pending merge |
-| Copy + open tab buttons | 2026-05-16 | in-progress | FEAT-004 — PR open, pending merge |
-| Validation + toasts | 2026-05-16 | in-progress | FEAT-005 — PR open, pending merge |
+| Phone input + sanitiser | 2026-05-16 | complete | FEAT-002 — all criteria verified |
+| Link generator | 2026-05-16 | complete | FEAT-003 — all criteria verified |
+| Copy + open tab buttons | 2026-05-16 | complete | FEAT-004 — all criteria verified |
+| Validation + toasts | 2026-05-16 | complete | FEAT-005 — all criteria verified, toast top-center |
 | Dark/light mode | — | not started | FEAT-006 |
 | Responsive + mobile keyboard fix | — | not started | FEAT-007 |
 | Geolocation auto-select | — | not started | FEAT-008 |
