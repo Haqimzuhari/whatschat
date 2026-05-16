@@ -17,16 +17,17 @@
 ## Last known state
 
 ```
-Branch       : development (clean) — 5 feature PRs open on feature/FEAT-005-validation-toasts (top of stack)
-Last commit  : 4f43fb8 — session 3 close
-Feature PRs  : FEAT-001 → FEAT-002 → FEAT-003 → FEAT-004 → FEAT-005 (stacked, merge in order)
-App status   : fully functional — verified in browser on localhost:5173
+Branch       : development (clean) — all PRs merged, fully up to date
+Last commit  : 9a14ea0 — Merge PR #8 docs/GEN-007-branch-protection-active
+Feature PRs  : FEAT-001 → FEAT-005 all merged into development ✓
+App status   : fully functional — all 5 features live on development branch
 UI polish    : toast top-center, red ring on error, green chat-bubble favicon
-FEAT status  : FEAT-002/003/004/005 complete. FEAT-001 in-progress (pending FEAT-008 + FEAT-006)
-Blocking item: none — merge PRs in order on GitHub
-Docs status  : complete — FEATURES.md criteria ticked and implementation notes added by AGT-002
+FEAT status  : FEAT-001/002/003/004/005 complete and merged. FEAT-006/007/008 not started.
+Blocking item: none
+Docs status  : complete — FEATURES.md, GENERAL.md, PROGRESS.md all current
 GitHub repo  : git@github.com:Haqimzuhari/whatschat.git
-Next step    : merge PRs on GitHub (001→002→003→004→005), then FEAT-006 (dark/light mode)
+Branch rules : Ruleset active — "Restrict updates" unchecked, PRs required on development + master
+Next step    : FEAT-006 (dark/light mode toggle)
 ```
 
 ---
@@ -42,11 +43,27 @@ Blocked by   : —
 Next step    : —
 ```
 
+
+
 ---
 
 ## Session history
 
 <!-- Oldest at the bottom, newest at the top -->
+
+### 2026-05-16 (session 5)
+
+| Field        | Value |
+|--------------|-------|
+| Agent/person | AGT-000 |
+| Branch       | development (all PRs merged) |
+| Goal         | Merge all pending PRs, fix GitHub Ruleset blocking merges |
+| Completed    | Diagnosed "Restrict updates" Ruleset rule as merge blocker (empty bypass list locks out owner). Fixed by unchecking it — "Require PR before merging" alone handles direct-push protection. All 6 PRs merged: FEAT-001 → FEAT-002 → FEAT-003 → FEAT-004 → FEAT-005 → docs/GEN-007. development now clean and fully up to date. |
+| Left off at  | development clean, all features merged. Branch protection working correctly. |
+| Next step    | FEAT-006 — dark/light mode toggle |
+| Related      | FEAT-001, FEAT-002, FEAT-003, FEAT-004, FEAT-005, GEN-007 |
+
+---
 
 ### 2026-05-16 (session 4)
 
@@ -135,7 +152,7 @@ TEMPLATE — copy this block when archiving a session:
 | Docker scaffold (Phase 1) | 2026-05-16 | complete | GEN-001 — Vue 3 + Vite + Tailwind + Inter |
 | Docker dev environment (Phase 2) | 2026-05-16 | complete | GEN-002 — dev + prod compose verified |
 | Vue app skeleton | 2026-05-16 | complete | app viewable in browser at localhost:5173 |
-| Country dropdown | 2026-05-16 | in-progress | FEAT-001 — PR open, pending merge |
+| Country dropdown | 2026-05-16 | complete | FEAT-001 — merged into development |
 | Phone input + sanitiser | 2026-05-16 | complete | FEAT-002 — all criteria verified |
 | Link generator | 2026-05-16 | complete | FEAT-003 — all criteria verified |
 | Copy + open tab buttons | 2026-05-16 | complete | FEAT-004 — all criteria verified |
