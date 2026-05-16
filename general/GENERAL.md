@@ -281,11 +281,15 @@ Define and document the branching strategy so all agents and contributors follow
 - [x] Create `master` branch (stable, deploys to Pages)
 - [x] Create `development` branch from master (active development)
 - [x] Document branch naming conventions in `PROJECT.md`
-- [ ] Configure branch protection on `master`: require PR + passing CI before merge — **manual step: set in GitHub repo Settings → Branches**
+- [x] Configure branch protection on `master` and `development` — active on GitHub
 
 ### Update 2026-05-16
 
 `master` branch confirmed on remote. `development` branch created from master and pushed to `origin/development`. Branch naming conventions documented in PROJECT.md. Branch protection on `master` cannot be set via CLI (gh not installed) — must be configured manually in GitHub → Settings → Branches → Add rule: require PR review + status checks before merge.
+
+### Update 2026-05-16 (protection active)
+
+Repo changed from private to public — GitHub branch protection now available on free plan. Branch protection rules enabled on both `master` and `development`: require PR before merging, no direct pushes. Direct-push doc exception removed — all changes now go through PRs. New branch prefixes added: `docs/` for documentation/progress updates, `config/` for config file changes.
 
 ### Notes
 
