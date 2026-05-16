@@ -90,7 +90,7 @@ ADR-001 confirms: country + dial code data must be bundled as a static JSON file
 
 ### Update 2026-05-16 (implemented)
 
-`src/data/countries.js` — 195 entries (code + dialCode). `src/utils/countryUtils.js` — buildCountryList() derives name via Intl.DisplayNames and flag via regional indicator codepoints, sorts alphabetically. filterCountries() matches name, dialCode, code. `src/components/CountryDropdown.vue` — click-outside via mousedown listener, keyboard nav (arrows/enter/escape), search resets on close. Verified in browser. 2 criteria pending: auto-select (FEAT-008) and dark mode (FEAT-006).
+Implemented in `feature/FEAT-001-country-dropdown`. Files: `src/data/countries.js` (195 entries), `src/utils/countryUtils.js` (buildCountryList, filterCountries), `src/components/CountryDropdown.vue`. Country names via `Intl.DisplayNames`, flags via regional indicator codepoints. Search filters by name, dial code, ISO code. Keyboard nav: arrows, enter, escape. Click-outside closes. Dark + light mode. PR open — pending merge into development.
 
 ---
 
@@ -100,7 +100,7 @@ ADR-001 confirms: country + dial code data must be bundled as a static JSON file
 |------------|-------|
 | ID         | FEAT-002 |
 | Title      | Phone number input and sanitiser |
-| Status     | complete |
+| Status     | in-progress |
 | Branch     | feature/FEAT-002-phone-input |
 | Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
@@ -127,11 +127,7 @@ Use a `@input` handler that runs a regex replace `/[^0-9]/g` to strip non-digits
 
 ### Update 2026-05-16 (implemented)
 
-`src/utils/phoneUtils.js` — sanitisePhone() strips non-digits, trunk zero, duplicate dial code prefix. hasLetters() drives real-time error. `src/components/PhoneInput.vue` — type="tel", red border + red ring on error, green ring on clean. All criteria verified in browser.
-
-### Update 2026-05-16 (refinement)
-
-Focus ring color corrected — was always `focus:ring-green-500` regardless of error state. Now uses `focus:ring-red-400` when error prop is set, matching the red border. UI review caught the mismatch (green ring + red border looked inconsistent).
+Implemented in `feature/FEAT-002-phone-input` (stacked on FEAT-001). Files: `src/utils/phoneUtils.js` (sanitisePhone, hasLetters), `src/components/PhoneInput.vue`. Live inline error on letter detection; red border via computed phoneError. PR open — pending merge.
 
 ---
 
@@ -141,7 +137,7 @@ Focus ring color corrected — was always `focus:ring-green-500` regardless of e
 |------------|-------|
 | ID         | FEAT-003 |
 | Title      | WhatsApp link generator |
-| Status     | complete |
+| Status     | in-progress |
 | Branch     | feature/FEAT-003-link-generator |
 | Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
@@ -166,7 +162,7 @@ Link format: `https://wa.me/60123456789` — no `+`, no spaces, no dashes. The `
 
 ### Update 2026-05-16 (implemented)
 
-`src/utils/linkUtils.js` — buildLink() returns `https://wa.me/${dialCode}${sanitisedNumber}`, empty string if either arg missing. Wired in App.vue: generate() calls sanitisePhone then buildLink. Link displayed in monospace read-only block. All criteria verified in browser.
+Implemented in `feature/FEAT-003-link-generator` (stacked on FEAT-002). Files: `src/utils/linkUtils.js` (buildLink). Generate button in App.vue calls sanitisePhone then buildLink. Result shown in read-only monospace block. PR open — pending merge.
 
 ---
 
@@ -176,7 +172,7 @@ Link format: `https://wa.me/60123456789` — no `+`, no spaces, no dashes. The `
 |------------|-------|
 | ID         | FEAT-004 |
 | Title      | Copy link and open-in-new-tab buttons |
-| Status     | complete |
+| Status     | in-progress |
 | Branch     | feature/FEAT-004-copy-open |
 | Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
@@ -201,7 +197,7 @@ Two action buttons that appear after a link is generated: one copies the link to
 
 ### Update 2026-05-16 (implemented)
 
-Both buttons in App.vue. Copy: navigator.clipboard.writeText with textarea execCommand fallback, label reverts after 2s via setTimeout. Open: window.open with noopener,noreferrer. Buttons hidden via `v-if="generatedLink"`. All criteria verified in browser.
+Implemented in `feature/FEAT-004-copy-open` (stacked on FEAT-003). Copy uses navigator.clipboard with textarea execCommand fallback. Label reverts after 2s. Start chatting uses window.open with noopener. Both hidden until link generated. PR open — pending merge.
 
 ---
 
@@ -211,7 +207,7 @@ Both buttons in App.vue. Copy: navigator.clipboard.writeText with textarea execC
 |------------|-------|
 | ID         | FEAT-005 |
 | Title      | Inline validation and toast notifications |
-| Status     | complete |
+| Status     | in-progress |
 | Branch     | feature/FEAT-005-validation-toasts |
 | Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
@@ -239,11 +235,7 @@ Inline errors use a `<p>` with `text-red-500 text-xs` rendered above each `<inpu
 
 ### Update 2026-05-16 (implemented)
 
-`src/composables/useToast.js` — shared toast queue (ref), addToast() pushes with auto-dismiss setTimeout, dismissToast() filters by id. `src/components/ToastContainer.vue` — fixed top-center, pointer-events-none wrapper, stacks multiple toasts. generate() in App.vue guards: no country, empty phone, letter error, empty sanitised result. All criteria verified in browser.
-
-### Update 2026-05-16 (refinement)
-
-Toast position changed from bottom-center to top-center — UI review found bottom placement harder to notice. ToastContainer positioning updated in `src/components/ToastContainer.vue`.
+Implemented in `feature/FEAT-005-validation-toasts` (stacked on FEAT-004). Files: `src/composables/useToast.js`, `src/components/ToastContainer.vue`. generate() guards: no country, empty phone, letter error, empty sanitised result — each shows a toast. ToastContainer fixed bottom-center, stacks multiple toasts, auto-dismisses after 5s, manual dismiss via X button. PR open — pending merge.
 
 ---
 
