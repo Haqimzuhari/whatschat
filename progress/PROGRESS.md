@@ -32,12 +32,12 @@ Next step    : FEAT-001 (country dropdown) or GEN-003 (GitHub Actions CI/CD)
 ## Current session
 
 ```
-Date         : —
-Agent/person : —
-Goal         : —
-In-flight    : —
+Date         : 2026-05-16
+Agent/person : AGT-000 → AGT-002
+Goal         : Implement FEAT-001 through FEAT-005
+In-flight    : FEAT-001 (country dropdown) — starting now
 Blocked by   : —
-Next step    : —
+Next step    : branch feature/FEAT-001-country-dropdown, implement, PR → development
 ```
 
 ---
