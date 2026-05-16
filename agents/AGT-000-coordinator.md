@@ -44,9 +44,23 @@ Instructions : [specific task for the agent]
 
 ---
 
+## Progress update workflow
+
+Run this checklist whenever a task is completed or a session closes:
+
+1. **PROGRESS.md — Last known state** — update branch, last commit, app status, blocking item, next step
+2. **PROGRESS.md — Milestone tracker** — if the completed work maps to a milestone row, update its status and notes
+3. **GENERAL.md** — if the work was a GEN-NNN task: tick off completed steps, set `Status` to `complete`, append an `### Update YYYY-MM-DD` block
+4. **FEATURES.md** — if the work was a FEAT-NNN task: tick off completed steps, set `Status` to `complete`, append an `### Update YYYY-MM-DD` block
+5. **PROGRESS.md — Session history** — archive the current session block before starting a new one
+
+Apply all five updates in the same commit where possible.
+
+---
+
 ## Rules
 
 - Never do implementation work directly — delegate to specialists
 - Always read PROGRESS.md before issuing any delegation
-- Always update PROGRESS.md at the end of every session
+- Always run the progress update workflow at the end of every session
 - Cross-reference IDs in every delegation block

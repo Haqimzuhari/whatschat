@@ -17,12 +17,12 @@
 ## Last known state
 
 ```
-Branch       : development (clean, PR #2 merged — chore/GEN-002-docker-dev)
-Last commit  : 001fc98 — Merge pull request #2 from chore/GEN-002-docker-dev
-Docker status: docker-compose.yml (dev) + docker-compose.prod.yml (prod) both merged and verified
-App status   : running — docker compose up confirmed HTTP 200 on localhost:5173
+Branch       : development (clean, all GEN-002 work committed)
+Last commit  : 82e9d49 — docker commands documented in README, GEN-002 fully closed
+Docker status: complete — docker compose up brings app up, viewable in browser at localhost:5173
+App status   : live in browser — default Vite + Vue scaffold visible
 Blocking item: none
-Docs status  : complete
+Docs status  : complete — README has "Running locally" section
 GitHub repo  : git@github.com:Haqimzuhari/whatschat.git
 Next step    : FEAT-001 (country dropdown) or GEN-003 (GitHub Actions CI/CD)
 ```
@@ -104,7 +104,7 @@ TEMPLATE — copy this block when archiving a session:
 | Git + branching strategy | 2026-05-16 | complete | GEN-007 — PR workflow documented |
 | Docker scaffold (Phase 1) | 2026-05-16 | complete | GEN-001 — Vue 3 + Vite + Tailwind + Inter |
 | Docker dev environment (Phase 2) | 2026-05-16 | complete | GEN-002 — dev + prod compose verified |
-| Vue app skeleton | — | unblocked | docker compose up confirmed working |
+| Vue app skeleton | 2026-05-16 | complete | app viewable in browser at localhost:5173 |
 | Country dropdown | — | not started | FEAT-001 |
 | Phone input + sanitiser | — | not started | FEAT-002 |
 | Link generator | — | not started | FEAT-003 |
