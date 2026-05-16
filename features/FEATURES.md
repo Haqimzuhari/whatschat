@@ -121,6 +121,10 @@ A text input that accepts any phone number format a user might paste or type —
 
 Use a `@input` handler that runs a regex replace `/[^0-9]/g` to strip non-digits. Then strip leading `0` (trunk prefix) before concatenating with the dial code. Edge case: if the pasted number starts with the dial code (e.g. user pastes `60123456789` with Malaysia selected), detect and strip the duplicate prefix.
 
+### Update 2026-05-16 (refinement)
+
+Focus ring color corrected — was always `focus:ring-green-500` regardless of error state. Now uses `focus:ring-red-400` when error prop is set, matching the red border. UI review caught the mismatch (green ring + red border looked inconsistent).
+
 ---
 
 ## FEAT-003 — WhatsApp link generator
@@ -216,6 +220,10 @@ Two-tier error feedback. Inline validation shows a red hint message directly abo
 ### Implementation notes
 
 Inline errors use a `<p>` with `text-red-500 text-xs` rendered above each `<input>` — controlled by a reactive error string per field. Toast managed by a simple `ref([])` queue in a composable; each toast has an `id`, `message`, and a `setTimeout` cleanup.
+
+### Update 2026-05-16 (refinement)
+
+Toast position changed from bottom-center to top-center — UI review found bottom placement harder to notice. ToastContainer positioning updated in `src/components/ToastContainer.vue`.
 
 ---
 

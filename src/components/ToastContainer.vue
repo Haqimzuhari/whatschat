@@ -6,7 +6,7 @@ const emit = defineEmits(['dismiss'])
 </script>
 
 <template>
-  <div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-2 w-full max-w-sm px-4 pointer-events-none">
+  <div class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-2 w-full max-w-sm px-4 pointer-events-none">
     <div
       v-for="toast in toasts"
       :key="toast.id"
