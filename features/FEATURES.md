@@ -64,7 +64,7 @@ What changed and why.
 | Branch     | feature/FEAT-001-country-dropdown |
 | Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-16 |
 | Depends on | — |
 | Related    | FEAT-002, FEAT-008 |
 
@@ -74,11 +74,11 @@ A searchable dropdown that lists all countries with their dial codes. Auto-selec
 
 ### Acceptance criteria
 
-- [ ] Dropdown lists all countries with flag emoji, country name, and dial code
-- [ ] User can type to filter the list (case-insensitive, matches name and dial code)
+- [x] Dropdown lists all countries with flag emoji, country name, and dial code
+- [x] User can type to filter the list (case-insensitive, matches name and dial code)
 - [ ] On page load, country is auto-selected based on user location (FEAT-008)
-- [ ] Accessible via keyboard (arrow keys, enter, escape)
-- [ ] Dark and light mode both render correctly
+- [x] Accessible via keyboard (arrow keys, enter, escape)
+- [ ] Dark and light mode both render correctly — pending FEAT-006
 
 ### Implementation notes
 
@@ -104,7 +104,7 @@ Implemented in `feature/FEAT-001-country-dropdown`. Files: `src/data/countries.j
 | Branch     | feature/FEAT-002-phone-input |
 | Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-16 |
 | Depends on | FEAT-001 |
 | Related    | FEAT-003, FEAT-005 |
 
@@ -114,12 +114,12 @@ A text input that accepts any phone number format a user might paste or type —
 
 ### Acceptance criteria
 
-- [ ] Accepts paste of numbers like `+60 12-345 6789`, `0123456789`, `(012) 345-6789`
-- [ ] Strips all non-digit characters after input
-- [ ] Strips leading country code if it duplicates the selected country's dial code
-- [ ] Rejects any input that contains letters
-- [ ] Shows inline validation error above field when rules are violated (FEAT-005)
-- [ ] Output is digits-only, ready for concatenation with dial code
+- [x] Accepts paste of numbers like `+60 12-345 6789`, `0123456789`, `(012) 345-6789`
+- [x] Strips all non-digit characters after input
+- [x] Strips leading country code if it duplicates the selected country's dial code
+- [x] Rejects any input that contains letters
+- [x] Shows inline validation error above field when rules are violated (FEAT-005)
+- [x] Output is digits-only, ready for concatenation with dial code
 
 ### Implementation notes
 
@@ -141,7 +141,7 @@ Implemented in `feature/FEAT-002-phone-input` (stacked on FEAT-001). Files: `src
 | Branch     | feature/FEAT-003-link-generator |
 | Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-16 |
 | Depends on | FEAT-001, FEAT-002 |
 | Related    | FEAT-004, FEAT-005 |
 
@@ -151,10 +151,10 @@ Core business logic. Takes the selected dial code and sanitised phone number, as
 
 ### Acceptance criteria
 
-- [ ] Generated link follows format `https://wa.me/[country-code][number]`
-- [ ] No leading `+` or `0` in the final number
-- [ ] Link is displayed in a read-only label/field below the generate button
-- [ ] Empty or invalid input blocks generation and shows a toast (FEAT-005)
+- [x] Generated link follows format `https://wa.me/[country-code][number]`
+- [x] No leading `+` or `0` in the final number
+- [x] Link is displayed in a read-only label/field below the generate button
+- [x] Empty or invalid input blocks generation and shows a toast (FEAT-005)
 
 ### Implementation notes
 
@@ -176,7 +176,7 @@ Implemented in `feature/FEAT-003-link-generator` (stacked on FEAT-002). Files: `
 | Branch     | feature/FEAT-004-copy-open |
 | Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-16 |
 | Depends on | FEAT-003 |
 | Related    | — |
 
@@ -186,10 +186,10 @@ Two action buttons that appear after a link is generated: one copies the link to
 
 ### Acceptance criteria
 
-- [ ] "Copy link" button copies the generated URL to clipboard using `navigator.clipboard.writeText`
-- [ ] Button label changes to "Copied!" for 2 seconds after a successful copy, then reverts
-- [ ] "Start chatting" button opens the link in a new tab (`window.open(url, '_blank')`)
-- [ ] Both buttons are hidden/disabled until a valid link has been generated
+- [x] "Copy link" button copies the generated URL to clipboard using `navigator.clipboard.writeText`
+- [x] Button label changes to "Copied!" for 2 seconds after a successful copy, then reverts
+- [x] "Start chatting" button opens the link in a new tab (`window.open(url, '_blank')`)
+- [x] Both buttons are hidden/disabled until a valid link has been generated
 
 ### Implementation notes
 
@@ -211,7 +211,7 @@ Implemented in `feature/FEAT-004-copy-open` (stacked on FEAT-003). Copy uses nav
 | Branch     | feature/FEAT-005-validation-toasts |
 | Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-16 |
 | Depends on | FEAT-001, FEAT-002 |
 | Related    | FEAT-003 |
 
@@ -221,13 +221,13 @@ Two-tier error feedback. Inline validation shows a red hint message directly abo
 
 ### Acceptance criteria
 
-- [ ] Inline error appears above the phone field if letters are detected on input
-- [ ] Inline error clears as soon as the field becomes valid
-- [ ] Toast appears at top or bottom of screen on failed generate attempt
-- [ ] Toast message is human-readable and concise (max ~60 characters)
-- [ ] Toast auto-dismisses after 5 seconds
-- [ ] Toast can be manually dismissed before the timeout
-- [ ] Multiple toasts stack without overlapping
+- [x] Inline error appears above the phone field if letters are detected on input
+- [x] Inline error clears as soon as the field becomes valid
+- [x] Toast appears at top of screen on failed generate attempt
+- [x] Toast message is human-readable and concise (max ~60 characters)
+- [x] Toast auto-dismisses after 5 seconds
+- [x] Toast can be manually dismissed before the timeout
+- [x] Multiple toasts stack without overlapping
 
 ### Implementation notes
 
