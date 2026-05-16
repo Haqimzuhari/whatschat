@@ -1,8 +1,16 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import CountryDropdown from './components/CountryDropdown.vue'
+import PhoneInput from './components/PhoneInput.vue'
+import { hasLetters } from './utils/phoneUtils.js'
 
 const selectedCountry = ref(null)
+const rawPhone = ref('')
+
+const phoneError = computed(() => {
+  if (hasLetters(rawPhone.value)) return 'Phone number must contain digits only'
+  return ''
+})
 </script>
 
 <template>
@@ -14,6 +22,7 @@ const selectedCountry = ref(null)
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 space-y-4">
         <CountryDropdown v-model="selectedCountry" />
+        <PhoneInput v-model="rawPhone" :error="phoneError" />
       </div>
     </div>
   </div>
