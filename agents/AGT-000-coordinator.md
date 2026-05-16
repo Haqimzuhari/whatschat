@@ -65,7 +65,7 @@ Apply all five updates in the same commit where possible.
 | Feature / infra / hotfix | Yes | Branch off `development`, open PR |
 | Pure doc / progress updates | No | Commit directly to `development` |
 
-"Pure doc / progress updates" means changes only to: `progress/PROGRESS.md`, `general/GENERAL.md`, `features/FEATURES.md`, `hotfixes/HOTFIXES.md`, `agents/*.md`, `README.md`. No source code, no config, no Docker files.
+"Pure doc / progress updates" means changes only to: `progress/PROGRESS.md`, `general/GENERAL.md`, `features/FEATURES.md`, `hotfixes/HOTFIXES.md`, `agents/*.md`, `PROJECT.md`, `README.md`. No source code, no config, no Docker files.
 
 ---
 
