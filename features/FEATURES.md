@@ -60,11 +60,11 @@ What changed and why.
 |------------|-------|
 | ID         | FEAT-001 |
 | Title      | Country dropdown with search |
-| Status     | planned |
+| Status     | in-progress |
 | Branch     | feature/FEAT-001-country-dropdown |
-| Agent      | Agent 2 — Frontend Developer |
+| Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-16 |
 | Depends on | — |
 | Related    | FEAT-002, FEAT-008 |
 
@@ -74,11 +74,11 @@ A searchable dropdown that lists all countries with their dial codes. Auto-selec
 
 ### Acceptance criteria
 
-- [ ] Dropdown lists all countries with flag emoji, country name, and dial code
-- [ ] User can type to filter the list (case-insensitive, matches name and dial code)
+- [x] Dropdown lists all countries with flag emoji, country name, and dial code
+- [x] User can type to filter the list (case-insensitive, matches name and dial code)
 - [ ] On page load, country is auto-selected based on user location (FEAT-008)
-- [ ] Accessible via keyboard (arrow keys, enter, escape)
-- [ ] Dark and light mode both render correctly
+- [x] Accessible via keyboard (arrow keys, enter, escape)
+- [ ] Dark and light mode both render correctly — pending FEAT-006
 
 ### Implementation notes
 
@@ -88,6 +88,10 @@ Use the browser `Intl.DisplayNames` API to generate country names. Store dial co
 
 ADR-001 confirms: country + dial code data must be bundled as a static JSON file — no external API call. Chosen approach is safe on GitHub Pages with zero CORS risk. AGT-002 to source or author the static dataset before implementing the dropdown component.
 
+### Update 2026-05-16 (implemented)
+
+`src/data/countries.js` — 195 entries (code + dialCode). `src/utils/countryUtils.js` — buildCountryList() derives name via Intl.DisplayNames and flag via regional indicator codepoints, sorts alphabetically. filterCountries() matches name, dialCode, code. `src/components/CountryDropdown.vue` — click-outside via mousedown listener, keyboard nav (arrows/enter/escape), search resets on close. Verified in browser. 2 criteria pending: auto-select (FEAT-008) and dark mode (FEAT-006).
+
 ---
 
 ## FEAT-002 — Phone number input and sanitiser
@@ -96,11 +100,11 @@ ADR-001 confirms: country + dial code data must be bundled as a static JSON file
 |------------|-------|
 | ID         | FEAT-002 |
 | Title      | Phone number input and sanitiser |
-| Status     | planned |
+| Status     | complete |
 | Branch     | feature/FEAT-002-phone-input |
-| Agent      | Agent 2 — Frontend Developer |
+| Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-16 |
 | Depends on | FEAT-001 |
 | Related    | FEAT-003, FEAT-005 |
 
@@ -110,16 +114,20 @@ A text input that accepts any phone number format a user might paste or type —
 
 ### Acceptance criteria
 
-- [ ] Accepts paste of numbers like `+60 12-345 6789`, `0123456789`, `(012) 345-6789`
-- [ ] Strips all non-digit characters after input
-- [ ] Strips leading country code if it duplicates the selected country's dial code
-- [ ] Rejects any input that contains letters
-- [ ] Shows inline validation error above field when rules are violated (FEAT-005)
-- [ ] Output is digits-only, ready for concatenation with dial code
+- [x] Accepts paste of numbers like `+60 12-345 6789`, `0123456789`, `(012) 345-6789`
+- [x] Strips all non-digit characters after input
+- [x] Strips leading country code if it duplicates the selected country's dial code
+- [x] Rejects any input that contains letters
+- [x] Shows inline validation error above field when rules are violated (FEAT-005)
+- [x] Output is digits-only, ready for concatenation with dial code
 
 ### Implementation notes
 
 Use a `@input` handler that runs a regex replace `/[^0-9]/g` to strip non-digits. Then strip leading `0` (trunk prefix) before concatenating with the dial code. Edge case: if the pasted number starts with the dial code (e.g. user pastes `60123456789` with Malaysia selected), detect and strip the duplicate prefix.
+
+### Update 2026-05-16 (implemented)
+
+`src/utils/phoneUtils.js` — sanitisePhone() strips non-digits, trunk zero, duplicate dial code prefix. hasLetters() drives real-time error. `src/components/PhoneInput.vue` — type="tel", red border + red ring on error, green ring on clean. All criteria verified in browser.
 
 ### Update 2026-05-16 (refinement)
 
@@ -133,11 +141,11 @@ Focus ring color corrected — was always `focus:ring-green-500` regardless of e
 |------------|-------|
 | ID         | FEAT-003 |
 | Title      | WhatsApp link generator |
-| Status     | planned |
+| Status     | complete |
 | Branch     | feature/FEAT-003-link-generator |
-| Agent      | Agent 2 — Frontend Developer |
+| Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-16 |
 | Depends on | FEAT-001, FEAT-002 |
 | Related    | FEAT-004, FEAT-005 |
 
@@ -147,14 +155,18 @@ Core business logic. Takes the selected dial code and sanitised phone number, as
 
 ### Acceptance criteria
 
-- [ ] Generated link follows format `https://wa.me/[country-code][number]`
-- [ ] No leading `+` or `0` in the final number
-- [ ] Link is displayed in a read-only label/field below the generate button
-- [ ] Empty or invalid input blocks generation and shows a toast (FEAT-005)
+- [x] Generated link follows format `https://wa.me/[country-code][number]`
+- [x] No leading `+` or `0` in the final number
+- [x] Link is displayed in a read-only label/field below the generate button
+- [x] Empty or invalid input blocks generation and shows a toast (FEAT-005)
 
 ### Implementation notes
 
 Link format: `https://wa.me/60123456789` — no `+`, no spaces, no dashes. The `wa.me` format is WhatsApp's official deep link; it opens the app on mobile and web.whatsapp.com on desktop.
+
+### Update 2026-05-16 (implemented)
+
+`src/utils/linkUtils.js` — buildLink() returns `https://wa.me/${dialCode}${sanitisedNumber}`, empty string if either arg missing. Wired in App.vue: generate() calls sanitisePhone then buildLink. Link displayed in monospace read-only block. All criteria verified in browser.
 
 ---
 
@@ -164,11 +176,11 @@ Link format: `https://wa.me/60123456789` — no `+`, no spaces, no dashes. The `
 |------------|-------|
 | ID         | FEAT-004 |
 | Title      | Copy link and open-in-new-tab buttons |
-| Status     | planned |
+| Status     | complete |
 | Branch     | feature/FEAT-004-copy-open |
-| Agent      | Agent 2 — Frontend Developer |
+| Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-16 |
 | Depends on | FEAT-003 |
 | Related    | — |
 
@@ -178,14 +190,18 @@ Two action buttons that appear after a link is generated: one copies the link to
 
 ### Acceptance criteria
 
-- [ ] "Copy link" button copies the generated URL to clipboard using `navigator.clipboard.writeText`
-- [ ] Button label changes to "Copied!" for 2 seconds after a successful copy, then reverts
-- [ ] "Start chatting" button opens the link in a new tab (`window.open(url, '_blank')`)
-- [ ] Both buttons are hidden/disabled until a valid link has been generated
+- [x] "Copy link" button copies the generated URL to clipboard using `navigator.clipboard.writeText`
+- [x] Button label changes to "Copied!" for 2 seconds after a successful copy, then reverts
+- [x] "Start chatting" button opens the link in a new tab (`window.open(url, '_blank')`)
+- [x] Both buttons are hidden/disabled until a valid link has been generated
 
 ### Implementation notes
 
 `navigator.clipboard` requires HTTPS or localhost — GitHub Pages satisfies this. For older browser fallback, use `document.execCommand('copy')` on a hidden textarea.
+
+### Update 2026-05-16 (implemented)
+
+Both buttons in App.vue. Copy: navigator.clipboard.writeText with textarea execCommand fallback, label reverts after 2s via setTimeout. Open: window.open with noopener,noreferrer. Buttons hidden via `v-if="generatedLink"`. All criteria verified in browser.
 
 ---
 
@@ -195,11 +211,11 @@ Two action buttons that appear after a link is generated: one copies the link to
 |------------|-------|
 | ID         | FEAT-005 |
 | Title      | Inline validation and toast notifications |
-| Status     | planned |
+| Status     | complete |
 | Branch     | feature/FEAT-005-validation-toasts |
-| Agent      | Agent 2 — Frontend Developer |
+| Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-16 |
 | Depends on | FEAT-001, FEAT-002 |
 | Related    | FEAT-003 |
 
@@ -209,17 +225,21 @@ Two-tier error feedback. Inline validation shows a red hint message directly abo
 
 ### Acceptance criteria
 
-- [ ] Inline error appears above the phone field if letters are detected on input
-- [ ] Inline error clears as soon as the field becomes valid
-- [ ] Toast appears at top or bottom of screen on failed generate attempt
-- [ ] Toast message is human-readable and concise (max ~60 characters)
-- [ ] Toast auto-dismisses after 5 seconds
-- [ ] Toast can be manually dismissed before the timeout
-- [ ] Multiple toasts stack without overlapping
+- [x] Inline error appears above the phone field if letters are detected on input
+- [x] Inline error clears as soon as the field becomes valid
+- [x] Toast appears at top of screen on failed generate attempt
+- [x] Toast message is human-readable and concise (max ~60 characters)
+- [x] Toast auto-dismisses after 5 seconds
+- [x] Toast can be manually dismissed before the timeout
+- [x] Multiple toasts stack without overlapping
 
 ### Implementation notes
 
 Inline errors use a `<p>` with `text-red-500 text-xs` rendered above each `<input>` — controlled by a reactive error string per field. Toast managed by a simple `ref([])` queue in a composable; each toast has an `id`, `message`, and a `setTimeout` cleanup.
+
+### Update 2026-05-16 (implemented)
+
+`src/composables/useToast.js` — shared toast queue (ref), addToast() pushes with auto-dismiss setTimeout, dismissToast() filters by id. `src/components/ToastContainer.vue` — fixed top-center, pointer-events-none wrapper, stacks multiple toasts. generate() in App.vue guards: no country, empty phone, letter error, empty sanitised result. All criteria verified in browser.
 
 ### Update 2026-05-16 (refinement)
 
