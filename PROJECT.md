@@ -193,6 +193,8 @@ Only these files/folders are ever synced to master:
 | `docker-compose.prod.yml` | |
 | `.gitignore` | |
 | `.github/` | |
+| `README.md` | |
+| `LICENSE` | |
 
 This is enforced by the `release.yml` workflow whitelist — not convention.
 

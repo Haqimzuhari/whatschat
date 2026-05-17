@@ -17,16 +17,17 @@
 ## Last known state
 
 ```
-Branch       : development (clean) — 4 feature branches pushed, PRs open
-Last commit  : 629aa27 — docs(AGT-000): session 6 close
-Feature PRs  : FEAT-006/007/008 (stacked, merge in order) + FEAT-009 (independent) — all open
-App status   : fully functional — FEAT-001–005 live on development; FEAT-006–009 on branches
-FEAT status  : FEAT-001–005 complete. FEAT-006/007/008/009 in-progress (PRs open).
-Blocking item: none — merge PRs on GitHub: 006 → 007 → 008 → 009 (009 can merge any time)
-Docs status  : FEATURES.md + PROGRESS.md fully current as of session 7
+Branch       : development (clean)
+Last commit  : 591221c — Merge pull request #17 (GEN-003-004 CD pipeline)
+Feature PRs  : all merged — FEAT-001–009 complete and live
+App status   : LIVE at https://haqimzuhari.github.io/whatschat/
+FEAT status  : FEAT-001–009 complete.
+GEN status   : GEN-001–004 complete. GEN-003 has 2 open steps (add test jobs when GEN-005/006 done).
+Blocking item: none
+Docs status  : GENERAL.md, FEATURES.md, PROGRESS.md current as of session 8
 GitHub repo  : git@github.com:Haqimzuhari/whatschat.git
 Branch rules : Ruleset active — PRs required on development + master
-Next step    : Merge open PRs, then GEN-003 (CI/CD) or GEN-005 (Vitest tests)
+Next step    : GEN-005 (Vitest unit tests) or GEN-006 (Playwright E2E)
 ```
 
 ---
@@ -41,6 +42,20 @@ In-flight    : —
 Blocked by   : —
 Next step    : —
 ```
+
+---
+
+### 2026-05-17 (session 8)
+
+| Field        | Value |
+|--------------|-------|
+| Agent/person | AGT-000 → AGT-003 / AGT-005 |
+| Branch       | docs/session-8-close |
+| Goal         | Complete GEN-003/004 — CI/CD pipeline + GitHub Pages first deployment |
+| Completed    | GEN-003: deploy.yml + release.yml workflows created and working. GEN-004: Pages source set to "GitHub Actions", first release triggered (fixed GITHUB_TOKEN PR create permission), release PR merged, app deployed live at https://haqimzuhari.github.io/whatschat/. README.md rewritten with live URL, features, tech stack, local setup, deployment guide. LICENSE (MIT) added. release.yml whitelist updated to include README.md and LICENSE. |
+| Left off at  | App is live. All FEAT-001–009 deployed. One open GEN-004 step: test geolocation on live HTTPS URL. |
+| Next step    | GEN-005 (Vitest unit + component tests) or GEN-006 (Playwright E2E) |
+| Related      | GEN-003, GEN-004 |
 
 
 
@@ -184,11 +199,11 @@ TEMPLATE — copy this block when archiving a session:
 | Link generator | 2026-05-16 | complete | FEAT-003 — all criteria verified |
 | Copy + open tab buttons | 2026-05-16 | complete | FEAT-004 — all criteria verified |
 | Validation + toasts | 2026-05-16 | complete | FEAT-005 — all criteria verified, toast top-center |
-| Dark/light mode | 2026-05-17 | in-progress | FEAT-006 — PR open, pending merge |
-| Responsive + mobile keyboard fix | 2026-05-17 | in-progress | FEAT-007 — PR open, pending merge |
-| Geolocation auto-select | 2026-05-17 | in-progress | FEAT-008 — PR open, pending merge |
-| Inline phone row layout | 2026-05-17 | in-progress | FEAT-009 — PR open, pending merge |
+| Dark/light mode | 2026-05-17 | complete | FEAT-006 — merged and live |
+| Responsive + mobile keyboard fix | 2026-05-17 | complete | FEAT-007 — merged and live |
+| Geolocation auto-select | 2026-05-17 | complete | FEAT-008 — merged and live |
+| Inline phone row layout | 2026-05-17 | complete | FEAT-009 — merged and live |
 | Unit + component tests | — | not started | GEN-005 |
 | E2E tests | — | not started | GEN-006 |
-| CI/CD pipeline | 2026-05-17 | complete | GEN-003 — deploy.yml + release.yml created |
-| GitHub Pages deploy | 2026-05-17 | in-progress | GEN-004 — pending: set Pages source to "GitHub Actions", run first release |
+| CI/CD pipeline | 2026-05-17 | complete | GEN-003 — deploy.yml + release.yml working |
+| GitHub Pages deploy | 2026-05-17 | complete | GEN-004 — live at https://haqimzuhari.github.io/whatschat/ |
