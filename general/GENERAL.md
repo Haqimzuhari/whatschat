@@ -144,29 +144,40 @@ Written `docker-compose.yml` (dev service, `node:20-alpine`, port 5173, named `n
 |------------|-------|
 | ID         | GEN-003 |
 | Category   | ci-cd |
-| Status     | planned |
-| Agent      | Agent 3 — DevOps Engineer |
+| Status     | complete |
+| Agent      | AGT-003 — DevOps Engineer |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-17 |
 | Related    | GEN-001, GEN-004, GEN-005, GEN-006 |
 
 ### Description
 
-GitHub Actions workflow that runs on push to `master`. Steps: install dependencies → run unit/component tests → run E2E tests → build → deploy to `gh-pages` branch. Tests must pass before deploy runs.
+Two GitHub Actions workflows covering the release and deploy pipeline. Testing (GEN-005/006) will be slotted into the deploy workflow once the test suite is set up — slot is reserved.
+
+**`release.yml` — Prepare Release (manual trigger)**
+Selectively syncs only app source files from `development` to a `release/YYYY-MM-DD` branch, then raises a PR to `master` automatically. Excludes all doc directories (agents/, progress/, features/, general/, hotfixes/, PROJECT.md).
+
+**`deploy.yml` — Build and Deploy (triggers on push to `master`)**
+Installs dependencies → builds `dist/` → deploys to GitHub Pages via `actions/deploy-pages`.
 
 ### Steps
 
-- [ ] Create `.github/workflows/deploy.yml`
-- [ ] Add `install` job: `npm ci`
-- [ ] Add `test` job: runs Vitest (unit + component), depends on install
-- [ ] Add `e2e` job: runs Playwright, depends on test
-- [ ] Add `build` job: `npm run build`, depends on e2e
-- [ ] Add `deploy` job: uses `peaceiris/actions-gh-pages@v3` to push `dist/` to `gh-pages`, depends on build
-- [ ] Add branch protection on `master` requiring workflow to pass
+- [x] Create `.github/workflows/deploy.yml` — build + deploy on push to master
+- [x] Create `.github/workflows/release.yml` — selective sync development → master via PR
+- [x] Add `base: '/whatschat/'` to `vite.config.js` for correct GitHub Pages asset paths
+- [ ] Add test job to `deploy.yml` once GEN-005 (Vitest) is complete
+- [ ] Add E2E job to `deploy.yml` once GEN-006 (Playwright) is complete
+- [ ] Enable branch protection on `master` requiring deploy workflow to pass before merge
 
 ### Notes
 
-Secrets needed: none for GitHub Pages deploy (uses `GITHUB_TOKEN` which is auto-provided). If `VITE_IPAPI_KEY` is added later, store it as a GitHub repo secret and inject as env var in the build job.
+- `GITHUB_TOKEN` is auto-provided by Actions — no secrets needed for Pages deploy
+- Testing slot is reserved in `deploy.yml` — add test job before build job when GEN-005 is ready
+- `release.yml` whitelist: src/, public/, index.html, vite.config.js, tailwind.config.js, postcss.config.js, package.json, package-lock.json, docker-compose.yml, docker-compose.prod.yml, .gitignore, .github/
+
+### Update 2026-05-17 (implemented)
+
+Two workflows created. `deploy.yml` uses official GitHub Actions Pages actions (configure-pages, upload-pages-artifact, deploy-pages) — no third-party action needed. `release.yml` creates a `release/` branch from master, cherry-picks only whitelisted app files from development, raises PR to master automatically via `gh` CLI with GITHUB_TOKEN. `vite.config.js` base set to `/whatschat/`. GitHub Pages source must be set to "GitHub Actions" in repo Settings → Pages.
 
 ---
 
@@ -176,27 +187,33 @@ Secrets needed: none for GitHub Pages deploy (uses `GITHUB_TOKEN` which is auto-
 |------------|-------|
 | ID         | GEN-004 |
 | Category   | deployment |
-| Status     | planned |
-| Agent      | Agent 5 — Deployment Strategist |
+| Status     | in-progress |
+| Agent      | AGT-005 — Deployment Strategist |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-17 |
 | Related    | GEN-003 |
 
 ### Description
 
-Configure the GitHub repository to serve the `gh-pages` branch as a GitHub Pages site. Confirm the SPA works correctly at the Pages URL (no 404 on refresh since this is a single-page app with no routing).
+GitHub Pages serves the built app from `master` via GitHub Actions (not from a branch directly). The deploy workflow (`deploy.yml`) is triggered on every push to `master` and deploys the `dist/` output.
 
 ### Steps
 
-- [ ] Enable GitHub Pages in repo Settings → Pages → Source: `gh-pages` branch, `/ (root)`
-- [ ] Confirm `https://{username}.github.io/{repo}/` loads the app
+- [x] Set `base: '/whatschat/'` in `vite.config.js`
+- [ ] Enable GitHub Pages in repo Settings → Pages → Source: **GitHub Actions** (not a branch)
+- [ ] Trigger the first release: Actions → Prepare Release to Master → Run workflow
+- [ ] Merge the resulting `release/` PR into master
+- [ ] Confirm deploy workflow completes successfully in Actions tab
+- [ ] Confirm `https://haqimzuhari.github.io/whatschat/` loads the app
 - [ ] Test geolocation on the live HTTPS Pages URL
-- [ ] Add `vite.config.js` `base` option if the repo is not at root (e.g. `base: '/{repo-name}/'`)
 - [ ] Document the live URL in `README.md`
 
 ### Notes
 
-No server required — the app is a fully static SPA. All geolocation calls are client-side. The `ipapi.co` call is HTTPS and CORS-open so it works from a Pages URL with no proxy.
+- GitHub Pages source must be "GitHub Actions" — not `gh-pages` branch or master branch root
+- `master` contains only app source — doc folders are never synced there (enforced by `release.yml` whitelist)
+- The live URL will be: `https://haqimzuhari.github.io/whatschat/`
+- `ipapi.co` is HTTPS and CORS-open — geolocation will work from Pages URL with no proxy
 
 ---
 

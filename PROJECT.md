@@ -85,8 +85,8 @@ Every task, feature, fix, and agent has a unique ID. Cross-reference freely acro
 
 | Branch | Purpose | Convention |
 |--------|---------|------------|
-| `master` | Stable — auto-deploys to GitHub Pages | Never push directly. PR from `development` only. |
-| `development` | Integration — all work lands here first | Never push directly. PR from feature/chore/hotfix branches only. |
+| `master` | Stable — auto-deploys to GitHub Pages | App source only. Never push directly. Release workflow raises PR automatically. |
+| `development` | Integration — all work lands here first | Full project including docs. Never push directly. PR from feature/chore/hotfix branches only. |
 
 Direct pushes to `master` or `development` are enforced by GitHub branch protection rules. Everything goes through a PR.
 
@@ -160,10 +160,41 @@ Hotfixes are urgent — they branch off `master`, not `development`:
 When `development` is stable and ready to ship:
 
 ```
-1. Open a PR: development → master
-2. Review, confirm CI passes
-3. Merge — GitHub Actions auto-deploys to GitHub Pages
+1. Go to GitHub → Actions → "Prepare Release to Master" → Run workflow
+   (optionally enter a version label e.g. v1.0.0 — defaults to today's date)
+
+2. The workflow automatically:
+   - Syncs only app source files from development to a release/YYYY-MM-DD branch
+   - Raises a PR to master — no doc folders included
+
+3. Review the PR diff — confirm no agents/, progress/, features/, general/,
+   hotfixes/, or PROJECT.md files are present
+
+4. Merge the PR
+
+5. GitHub Actions deploy workflow triggers automatically → builds → deploys to Pages
 ```
+
+### What belongs in master (whitelist)
+
+Only these files/folders are ever synced to master:
+
+| Included | Never in master |
+|----------|----------------|
+| `src/` | `agents/` |
+| `public/` | `progress/` |
+| `index.html` | `features/` |
+| `vite.config.js` | `general/` |
+| `tailwind.config.js` | `hotfixes/` |
+| `postcss.config.js` | `PROJECT.md` |
+| `package.json` | `docker-compose.scaffold.yml` |
+| `package-lock.json` | |
+| `docker-compose.yml` | |
+| `docker-compose.prod.yml` | |
+| `.gitignore` | |
+| `.github/` | |
+
+This is enforced by the `release.yml` workflow whitelist — not convention.
 
 ### Branch protection
 

@@ -190,5 +190,5 @@ TEMPLATE — copy this block when archiving a session:
 | Inline phone row layout | 2026-05-17 | in-progress | FEAT-009 — PR open, pending merge |
 | Unit + component tests | — | not started | GEN-005 |
 | E2E tests | — | not started | GEN-006 |
-| CI/CD pipeline | — | not started | GEN-003 |
-| GitHub Pages deploy | — | not started | GEN-004 |
+| CI/CD pipeline | 2026-05-17 | complete | GEN-003 — deploy.yml + release.yml created |
+| GitHub Pages deploy | 2026-05-17 | in-progress | GEN-004 — pending: set Pages source to "GitHub Actions", run first release |
