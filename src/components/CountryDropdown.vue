@@ -22,6 +22,7 @@ async function open() {
   highlightedIndex.value = 0
   await nextTick()
   searchInput.value?.focus()
+  rootEl.value?.scrollIntoView({ behavior: 'smooth', block: 'center' })
 }
 
 function close() {
