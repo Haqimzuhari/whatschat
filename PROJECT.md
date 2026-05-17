@@ -1,12 +1,14 @@
-# Project docs
+# WhatsChat
 
-Central knowledge base for the WhatsApp Link Generator project. Every decision, task, session, and fix is tracked here. **Append, never overwrite.**
+Single-page web app that generates a `wa.me/` WhatsApp link from a phone number. No contact saving required. Works on mobile and desktop.
+
+**Live:** https://haqimzuhari.github.io/whatschat/
+**Stack:** Vue 3 · Vite · Tailwind CSS · Inter · Vitest · Playwright
+**Repo:** git@github.com:Haqimzuhari/whatschat.git
 
 ---
 
 ## Running locally
-
-No local Node.js required — everything runs in Docker.
 
 **Dev server (hot-reload, port 5173):**
 ```sh
@@ -24,254 +26,92 @@ docker compose -f docker-compose.prod.yml run --rm build
 ## Folder structure
 
 ```
-project-docs/
-│
-├── PROJECT.md                       ← this file — start here
-│
-├── agents/                          ← AI agent definitions
-│   ├── AGT-000-coordinator.md       ← orchestrator — always activate first
-│   ├── AGT-001-architect.md         ← tech decisions, scaffold, config
-│   ├── AGT-002-frontend.md          ← Vue 3 app, all FEAT-NNN work
-│   ├── AGT-003-devops.md            ← Docker, CI/CD, branching
-│   ├── AGT-004-qa.md                ← Vitest, Playwright, coverage
-│   └── AGT-005-deployment.md        ← GitHub Pages, hosting, env vars
-│
-├── progress/
-│   └── PROGRESS.md                  ← session log + milestone tracker
-│
-├── features/
-│   └── FEATURES.md                  ← append-only feature registry
-│
-├── hotfixes/
-│   └── HOTFIXES.md                  ← bug + hotfix log
-│
-└── general/
-    └── GENERAL.md                   ← infra, testing, deploy tasks
+PROJECT.md                              ← start here every session
+context/
+  agents/                              ← agent definitions (AGT-000 to AGT-005)
+  features/
+    functional/                        ← FEAT-NNN user-facing features
+    nonfunctional/                     ← GEN-NNN infra, tooling, testing, deploy
+  progress/                            ← one file per session (YYYY-MM-DD-N.md)
+  templates/
+    feature.md                         ← template for new feature files
+    progress.md                        ← template for new progress files
 ```
 
 ---
 
-## ID system
+## Latest progress
 
-Every task, feature, fix, and agent has a unique ID. Cross-reference freely across all files.
+`context/progress/2026-05-17-3.md`
 
-| Prefix | File | Covers |
-|--------|------|--------|
-| `AGT-NNN` | `agents/` | Agent definitions and behaviour |
-| `FEAT-NNN` | `features/FEATURES.md` | User-facing features |
-| `HF-NNN` | `hotfixes/HOTFIXES.md` | Bug fixes and hotfixes |
-| `GEN-NNN` | `general/GENERAL.md` | Infra, tooling, testing, deployment |
+---
+
+## Functional features
+
+| File | Description | Status |
+|------|-------------|--------|
+| [FEAT-001-country-dropdown.md](context/features/functional/FEAT-001-country-dropdown.md) | Searchable country + dial code selector | complete |
+| [FEAT-002-phone-input-sanitiser.md](context/features/functional/FEAT-002-phone-input-sanitiser.md) | Phone input that strips non-digits | complete |
+| [FEAT-003-whatsapp-link-generator.md](context/features/functional/FEAT-003-whatsapp-link-generator.md) | Builds `wa.me/` link from dial code + number | complete |
+| [FEAT-004-copy-open-tab-buttons.md](context/features/functional/FEAT-004-copy-open-tab-buttons.md) | Copy link and open-in-new-tab buttons | complete |
+| [FEAT-005-validation-toast-notifications.md](context/features/functional/FEAT-005-validation-toast-notifications.md) | Inline validation and toast notifications | complete |
+| [FEAT-006-dark-light-mode.md](context/features/functional/FEAT-006-dark-light-mode.md) | Dark/light mode with OS preference + toggle | complete |
+| [FEAT-007-responsive-mobile-ux.md](context/features/functional/FEAT-007-responsive-mobile-ux.md) | Responsive layout with mobile keyboard fix | complete |
+| [FEAT-008-geolocation-auto-select.md](context/features/functional/FEAT-008-geolocation-auto-select.md) | IP geolocation auto-selects country on load | complete |
+| [FEAT-009-inline-phone-row-layout.md](context/features/functional/FEAT-009-inline-phone-row-layout.md) | Country selector and phone input on same row | complete |
+
+---
+
+## Nonfunctional features
+
+| File | Description | Status |
+|------|-------------|--------|
+| [GEN-001-docker-scaffold.md](context/features/nonfunctional/GEN-001-docker-scaffold.md) | One-time Vue 3 + Vite project bootstrap via Docker | complete |
+| [GEN-002-docker-dev-prod.md](context/features/nonfunctional/GEN-002-docker-dev-prod.md) | Dev hot-reload and prod build compose files | complete |
+| [GEN-003-github-actions-cicd.md](context/features/nonfunctional/GEN-003-github-actions-cicd.md) | Release and deploy GitHub Actions workflows | complete |
+| [GEN-004-github-pages-deployment.md](context/features/nonfunctional/GEN-004-github-pages-deployment.md) | GitHub Pages live hosting setup | complete |
+| [GEN-005-vitest-unit-tests.md](context/features/nonfunctional/GEN-005-vitest-unit-tests.md) | Vitest unit and component test suite | not-started |
+| [GEN-006-playwright-e2e-tests.md](context/features/nonfunctional/GEN-006-playwright-e2e-tests.md) | Playwright E2E test suite | not-started |
+| [GEN-007-git-branching-strategy.md](context/features/nonfunctional/GEN-007-git-branching-strategy.md) | Branching strategy, naming, PR workflow | complete |
 
 ---
 
 ## Agent roster
 
-| ID | Agent | Activates for |
-|----|-------|---------------|
-| AGT-000 | Project Coordinator | Every session — reads state, delegates, closes |
-| AGT-001 | Project Architect | Tech decisions, scaffold, config files, ADRs |
-| AGT-002 | Frontend Developer | All FEAT-NNN implementation |
-| AGT-003 | DevOps Engineer | Docker, CI/CD, Git branching (GEN-001/002/003/007) |
-| AGT-004 | QA Engineer | Tests and coverage (GEN-005/006) |
-| AGT-005 | Deployment Strategist | Hosting, env vars, live verification (GEN-004) |
-
-**Always activate AGT-000 first.** It reads `PROGRESS.md`, confirms current state, and delegates to the right specialist.
+| File | Role | Activates for |
+|------|------|---------------|
+| [AGT-000-coordinator.md](context/agents/AGT-000-coordinator.md) | Project Coordinator | Every session — reads state, delegates, closes |
+| [AGT-001-architect.md](context/agents/AGT-001-architect.md) | Project Architect | Tech decisions, scaffold, config, ADRs |
+| [AGT-002-frontend.md](context/agents/AGT-002-frontend.md) | Frontend Developer | All FEAT-NNN implementation |
+| [AGT-003-devops.md](context/agents/AGT-003-devops.md) | DevOps Engineer | Docker, CI/CD, branching |
+| [AGT-004-qa.md](context/agents/AGT-004-qa.md) | QA Engineer | Tests and coverage |
+| [AGT-005-deployment.md](context/agents/AGT-005-deployment.md) | Deployment Strategist | Hosting, env vars, live verification |
 
 ---
 
-## Branching strategy
+## Session protocol
 
-### Protected branches
+### Session start
+1. Read this file — get project context, feature statuses, and latest progress pointer
+2. Read the latest progress file listed above — understand current state and next step
+3. State your session goal
+4. AGT-000 reads its definition at [AGT-000-coordinator.md](context/agents/AGT-000-coordinator.md) and delegates to the correct specialist
 
-| Branch | Purpose | Convention |
-|--------|---------|------------|
-| `master` | Stable — auto-deploys to GitHub Pages | App source only. Never push directly. Release workflow raises PR automatically. |
-| `development` | Integration — all work lands here first | Full project including docs. Never push directly. PR from feature/chore/hotfix branches only. |
-
-Direct pushes to `master` or `development` are enforced by GitHub branch protection rules. Everything goes through a PR.
-
-### Branch naming
-
-| Type | Pattern | Example |
-|------|---------|---------|
-| Feature | `feature/FEAT-NNN-short-slug` | `feature/FEAT-001-country-dropdown` |
-| Hotfix | `hotfix/HF-NNN-short-slug` | `hotfix/HF-001-phone-sanitiser` |
-| Infra / chore | `chore/GEN-NNN-short-slug` | `chore/GEN-002-docker-dev` |
-| Docs / progress | `docs/short-slug` | `docs/GEN-007-branch-protection-active` |
-| Config changes | `config/short-slug` | `config/vite-base-path` |
-| Release | `release/v0.x.x` | `release/v1.0.0` |
-
-### Full workflow
-
-```
-1. Branch off development
-   git checkout development
-   git pull origin development
-   git checkout -b feature/FEAT-NNN-short-slug
-
-2. Do the work — commit as you go
-   git add <files>
-   git commit -m "feat(FEAT-NNN): description"
-
-3. Push branch to GitHub
-   git push -u origin feature/FEAT-NNN-short-slug
-
-4. Raise the PR using gh CLI (no manual GitHub navigation needed)
-   gh pr create \
-     --base development \
-     --head feature/FEAT-NNN-short-slug \
-     --title "feat(FEAT-NNN): description" \
-     --body "$(cat <<'EOF'
-   ## Summary
-   - what changed and why
-
-   ## Test plan
-   - [ ] what to verify
-
-   🤖 Generated with Claude Code
-   EOF
-   )"
-
-5. User merges the PR on GitHub
-   Use "Squash and merge" or "Merge commit" — be consistent
-   Delete the branch after merge (GitHub offers this automatically)
-
-6. Pull development locally
-   git checkout development
-   git pull origin development
-   git branch -d feature/FEAT-NNN-short-slug  (delete local branch)
-```
-
-### Hotfix workflow
-
-Hotfixes are urgent — they branch off `master`, not `development`:
-
-```
-1. git checkout master && git pull origin master
-2. git checkout -b hotfix/HF-NNN-short-slug
-3. Fix, commit, push
-4. PR → master (merge immediately)
-5. PR → development (keep them in sync)
-6. Delete hotfix branch
-```
-
-### Releasing to production
-
-When `development` is stable and ready to ship:
-
-```
-1. Go to GitHub → Actions → "Prepare Release to Master" → Run workflow
-   (optionally enter a version label e.g. v1.0.0 — defaults to today's date)
-
-2. The workflow automatically:
-   - Syncs only app source files from development to a release/YYYY-MM-DD branch
-   - Raises a PR to master — no doc folders included
-
-3. Review the PR diff — confirm no agents/, progress/, features/, general/,
-   hotfixes/, or PROJECT.md files are present
-
-4. Merge the PR
-
-5. GitHub Actions deploy workflow triggers automatically → builds → deploys to Pages
-```
-
-### What belongs in master (whitelist)
-
-Only these files/folders are ever synced to master:
-
-| Included | Never in master |
-|----------|----------------|
-| `src/` | `agents/` |
-| `public/` | `progress/` |
-| `index.html` | `features/` |
-| `vite.config.js` | `general/` |
-| `tailwind.config.js` | `hotfixes/` |
-| `postcss.config.js` | `PROJECT.md` |
-| `package.json` | `docker-compose.scaffold.yml` |
-| `package-lock.json` | |
-| `docker-compose.yml` | |
-| `docker-compose.prod.yml` | |
-| `.gitignore` | |
-| `.github/` | |
-| `README.md` | |
-| `LICENSE` | |
-
-This is enforced by the `release.yml` workflow whitelist — not convention.
-
-### Branch protection
-
-GitHub branch protection rules require a paid plan for private repos. Protection is enforced by convention instead — no agent or contributor should ever push directly to `master` or `development`. If the repo is made public in future, classic branch protection rules can be enabled for free.
-
-### Docs and progress updates
-
-Use a `docs/` branch for any change limited to documentation and progress files:
-
-- `progress/PROGRESS.md`
-- `general/GENERAL.md`
-- `features/FEATURES.md`
-- `hotfixes/HOTFIXES.md`
-- `agents/*.md`
-- `PROJECT.md`
-- `README.md`
-
-Use a `config/` branch for changes to config files only (`vite.config.js`, `tailwind.config.js`, `postcss.config.js`, `docker-compose*.yml`).
-
-No direct pushes to `master` or `development` — branch protection enforces this.
+### Session end (AGT-000 responsibility)
+1. Update the relevant feature file(s) — tick completed criteria, append dated entry to `## Updates`
+2. Update the feature status in the tables above if it changed
+3. Write a new progress file in `context/progress/` — today's date + next sequence number
+4. Update the "Latest progress" pointer above to the new file
 
 ---
 
-## The one rule
+## Branching summary
 
-**Append, never overwrite.** To update any entry, add a dated block below it. This preserves full history and lets any agent or person resume a session with full context.
+| Branch | Purpose |
+|--------|---------|
+| `master` | Stable — auto-deploys to GitHub Pages. App source only. |
+| `development` | Active development — all PRs target here first. |
 
----
+Full branching details in [GEN-007-git-branching-strategy.md](context/features/nonfunctional/GEN-007-git-branching-strategy.md).
 
-## How to start a session
-
-1. Open `progress/PROGRESS.md` — read "Last known state"
-2. Activate **AGT-000** with your session goal
-3. AGT-000 reads state, identifies the correct agent, and issues a delegation block
-4. The delegated agent reads its definition file (`agents/AGT-NNN-*.md`) and the relevant task entries
-5. Work proceeds on the correct FEAT/GEN/HF entry
-6. At session end, AGT-000 archives the session and updates `PROGRESS.md`
-
----
-
-## Project context
-
-**What:** A single-page web app that generates a `wa.me/` WhatsApp link from a phone number. No contact saving required. No extra apps. Works on mobile and desktop.
-
-**Stack:** Vue 3 · Vite · Tailwind CSS · Inter font · Vitest · Playwright
-
-**Hosting:** GitHub Pages (free, HTTPS, static SPA)
-
-**Use case:** Buyer wants to message a seller using only a phone number — one-time conversation, no contact saved.
-
----
-
-## Current feature list
-
-| ID | Feature | Status |
-|----|---------|--------|
-| FEAT-001 | Country dropdown with search | planned |
-| FEAT-002 | Phone input and sanitiser | planned |
-| FEAT-003 | WhatsApp link generator | planned |
-| FEAT-004 | Copy and open-tab buttons | planned |
-| FEAT-005 | Validation and toasts | planned |
-| FEAT-006 | Dark and light mode | planned |
-| FEAT-007 | Responsive + mobile keyboard UX | planned |
-| FEAT-008 | Geolocation auto-select country | planned |
-
----
-
-## Current infrastructure list
-
-| ID | Task | Status |
-|----|------|--------|
-| GEN-001 | Docker Phase 1 — scaffold | complete |
-| GEN-002 | Docker Phase 2 — dev/prod compose | complete |
-| GEN-003 | GitHub Actions CI/CD | not started |
-| GEN-004 | GitHub Pages deployment | not started |
-| GEN-005 | Vitest unit + component tests | not started |
-| GEN-006 | Playwright E2E tests | not started |
-| GEN-007 | Git branching strategy | complete |
+`context/` and `PROJECT.md` never reach `master` — enforced by the `release.yml` workflow whitelist.
