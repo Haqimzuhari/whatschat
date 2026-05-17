@@ -53,7 +53,9 @@ jobs:
             package.json \
             package-lock.json \
             .gitignore \
-            .github/
+            .github/ \
+            README.md
+          git checkout origin/development -- LICENSE 2>/dev/null || true
           git checkout origin/development -- docker-compose.yml docker-compose.prod.yml 2>/dev/null || true
 
       - name: Commit and push release branch
