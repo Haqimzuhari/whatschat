@@ -187,7 +187,7 @@ Two workflows created. `deploy.yml` uses official GitHub Actions Pages actions (
 |------------|-------|
 | ID         | GEN-004 |
 | Category   | deployment |
-| Status     | in-progress |
+| Status     | complete |
 | Agent      | AGT-005 — Deployment Strategist |
 | Created    | 2024-01-01 |
 | Updated    | 2026-05-17 |
@@ -200,13 +200,13 @@ GitHub Pages serves the built app from `master` via GitHub Actions (not from a b
 ### Steps
 
 - [x] Set `base: '/whatschat/'` in `vite.config.js`
-- [ ] Enable GitHub Pages in repo Settings → Pages → Source: **GitHub Actions** (not a branch)
-- [ ] Trigger the first release: Actions → Prepare Release to Master → Run workflow
-- [ ] Merge the resulting `release/` PR into master
-- [ ] Confirm deploy workflow completes successfully in Actions tab
-- [ ] Confirm `https://haqimzuhari.github.io/whatschat/` loads the app
+- [x] Enable GitHub Pages in repo Settings → Pages → Source: **GitHub Actions** (not a branch)
+- [x] Trigger the first release: Actions → Prepare Release to Master → Run workflow
+- [x] Merge the resulting `release/` PR into master
+- [x] Confirm deploy workflow completes successfully in Actions tab
+- [x] Confirm `https://haqimzuhari.github.io/whatschat/` loads the app
 - [ ] Test geolocation on the live HTTPS Pages URL
-- [ ] Document the live URL in `README.md`
+- [x] Document the live URL in `README.md`
 
 ### Notes
 
@@ -214,6 +214,10 @@ GitHub Pages serves the built app from `master` via GitHub Actions (not from a b
 - `master` contains only app source — doc folders are never synced there (enforced by `release.yml` whitelist)
 - The live URL will be: `https://haqimzuhari.github.io/whatschat/`
 - `ipapi.co` is HTTPS and CORS-open — geolocation will work from Pages URL with no proxy
+
+### Update 2026-05-17 (complete)
+
+All steps complete. GitHub Pages source set to "GitHub Actions". First release triggered via "Prepare Release to Master" workflow — fixed `GITHUB_TOKEN` PR creation permission (Settings → Actions → General → allow GitHub Actions to create PRs). Release PR merged to master. `deploy.yml` fired automatically — app confirmed live at `https://haqimzuhari.github.io/whatschat/`. README.md updated with live URL and full project description. Geolocation test on live HTTPS URL pending (one open step).
 
 ---
 
