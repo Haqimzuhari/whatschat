@@ -103,3 +103,5 @@ Prerequisite: `gh` CLI installed and authenticated (`gh auth login`) once per ma
 - Always run the progress update workflow at the end of every session
 - Cross-reference IDs in every delegation block
 - All commits require a branch and PR — no exceptions (branch protection is active)
+- Never raise a PR from any branch directly to `master` — releases to master go through the `release.yml` GitHub Actions workflow only
+- `master` contains app source only — agents/, progress/, features/, general/, hotfixes/, PROJECT.md must never reach master

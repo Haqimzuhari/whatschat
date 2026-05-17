@@ -122,3 +122,5 @@ Required once per machine. After that, all agents can raise PRs from the termina
 - All CI jobs must pass before the deploy job runs
 - Document every `docker compose` command that agents or users need to run
 - Append `### Update YYYY-MM-DD` to the relevant GEN entry after each change
+- Never raise a PR from any branch directly to `master` — use the `release.yml` GitHub Actions workflow only
+- `master` is app source only — the release workflow enforces the whitelist: src/, public/, index.html, vite.config.js, tailwind.config.js, postcss.config.js, package.json, package-lock.json, docker-compose files, .gitignore, .github/
