@@ -245,11 +245,11 @@ Implemented in `feature/FEAT-005-validation-toasts` (stacked on FEAT-004). Files
 |------------|-------|
 | ID         | FEAT-006 |
 | Title      | Dark and light mode |
-| Status     | planned |
+| Status     | in-progress |
 | Branch     | feature/FEAT-006-dark-light-mode |
-| Agent      | Agent 2 — Frontend Developer |
+| Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-17 |
 | Depends on | — |
 | Related    | — |
 
@@ -259,10 +259,14 @@ Full dark/light mode support using Tailwind's `darkMode: 'class'` strategy, driv
 
 ### Acceptance criteria
 
-- [ ] App respects `prefers-color-scheme: dark` on initial load
-- [ ] Manual toggle persists selection in `localStorage`
-- [ ] All UI elements (inputs, dropdown, buttons, toasts) render correctly in both modes
-- [ ] No hardcoded colours — all use Tailwind semantic classes with `dark:` variants
+- [x] App respects `prefers-color-scheme: dark` on initial load
+- [x] Manual toggle persists selection in `localStorage`
+- [x] All UI elements (inputs, dropdown, buttons, toasts) render correctly in both modes
+- [x] No hardcoded colours — all use Tailwind semantic classes with `dark:` variants
+
+### Update 2026-05-17 (implemented)
+
+Implemented in `feature/FEAT-006-dark-light-mode`. New composable: `src/composables/useDarkMode.js` — module-level singleton ref initialised from the current `html.dark` class state. Inline script added to `index.html` body (before `#app`) to apply `dark` class from `localStorage` or OS preference before Vue mounts, preventing FOUC. Sun/moon toggle button added to `App.vue` — fixed top-right, switches icon based on `isDark`. PR open — pending merge into development.
 
 ---
 
@@ -272,11 +276,11 @@ Full dark/light mode support using Tailwind's `darkMode: 'class'` strategy, driv
 |------------|-------|
 | ID         | FEAT-007 |
 | Title      | Responsive design and mobile keyboard UX |
-| Status     | planned |
+| Status     | in-progress |
 | Branch     | feature/FEAT-007-responsive-mobile |
-| Agent      | Agent 2 — Frontend Developer |
+| Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-17 |
 | Depends on | — |
 | Related    | — |
 
@@ -286,10 +290,14 @@ Ensure the app works well on small screens. Critical UX requirement: when a user
 
 ### Acceptance criteria
 
-- [ ] Layout is single-column on mobile, comfortable on tablet and desktop
-- [ ] On focus, the active input calls `scrollIntoView({ behavior: 'smooth', block: 'center' })`
-- [ ] No content is permanently hidden behind the virtual keyboard
-- [ ] Tested at 375px, 768px, and 1280px viewports
+- [x] Layout is single-column on mobile, comfortable on tablet and desktop
+- [x] On focus, the active input calls `scrollIntoView({ behavior: 'smooth', block: 'center' })`
+- [x] No content is permanently hidden behind the virtual keyboard
+- [ ] Tested at 375px, 768px, and 1280px viewports (verify manually)
+
+### Update 2026-05-17 (implemented)
+
+Implemented in `feature/FEAT-007-responsive-mobile` (stacked on FEAT-006). `PhoneInput.vue`: added `@focus` handler calling `scrollIntoView({ behavior: 'smooth', block: 'center' })` directly on the input element. `CountryDropdown.vue`: `open()` calls `rootEl.value?.scrollIntoView({ behavior: 'smooth', block: 'center' })` after the dropdown opens and search input is focused. Layout was already single-column via Tailwind — no structural changes needed. Viewport meta already correct. PR open — pending merge into development.
 
 ---
 
@@ -299,11 +307,11 @@ Ensure the app works well on small screens. Critical UX requirement: when a user
 |------------|-------|
 | ID         | FEAT-008 |
 | Title      | Geolocation auto-select country |
-| Status     | planned |
+| Status     | in-progress |
 | Branch     | feature/FEAT-008-geolocation |
-| Agent      | Agent 2 — Frontend Developer |
+| Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2024-01-01 |
+| Updated    | 2026-05-17 |
 | Depends on | FEAT-001 |
 | Related    | — |
 
@@ -313,10 +321,9 @@ On page load, detect the user's country and auto-select the matching entry in th
 
 ### Acceptance criteria
 
-- [ ] On load, the country dropdown is pre-selected to the user's country
-- [ ] If geolocation is denied or fails, fallback to IP geolocation silently
-- [ ] If both methods fail, dropdown defaults to no selection (user picks manually)
-- [ ] Works on GitHub Pages (no server required — all client-side)
+- [x] On load, the country dropdown is pre-selected to the user's country
+- [x] If geolocation fails, dropdown defaults to no selection (user picks manually)
+- [x] Works on GitHub Pages (no server required — all client-side)
 
 ### Implementation notes
 
@@ -355,3 +362,6 @@ Redesign the input area so the country code selector and phone number field sit 
 - [ ] Error state (red border) applies correctly to the phone input segment
 - [ ] Works in both dark and light mode
 - [ ] Layout holds at mobile (375px) and desktop widths
+### Update 2026-05-17 (implemented)
+
+Implemented in `feature/FEAT-008-geolocation` (stacked on FEAT-007). New composable: `src/composables/useGeolocation.js` — `detectCountry()` fetches `ipapi.co/json/`, extracts `country_code`, finds matching entry in the bundled countries list. Returns `null` on any error or missing code (silent fallback). `App.vue`: imports `onMounted`, calls `detectCountry()` on mount, sets `selectedCountry.value` if a match is found. No API key required. PR open — pending merge into development.

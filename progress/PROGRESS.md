@@ -17,17 +17,16 @@
 ## Last known state
 
 ```
-Branch       : development (clean) — all PRs merged, fully up to date
-Last commit  : 9a14ea0 — Merge PR #8 docs/GEN-007-branch-protection-active
-Feature PRs  : FEAT-001 → FEAT-005 all merged into development ✓
-App status   : fully functional — all 5 features live on development branch
-UI polish    : toast top-center, red ring on error, green chat-bubble favicon
-FEAT status  : FEAT-001/002/003/004/005 complete and merged. FEAT-006/007/008 not started.
-Blocking item: none
-Docs status  : complete — FEATURES.md, GENERAL.md, PROGRESS.md all current
+Branch       : development (clean) — all 3 new feature branches pushed, PRs pending merge
+Last commit  : e921ff8 — feat(FEAT-008): auto-select country via ipapi.co geolocation
+Feature PRs  : FEAT-006/007/008 implemented and pushed — 3 PRs open, pending merge
+App status   : fully functional — FEAT-001–005 live; FEAT-006/007/008 on stacked branches
+FEAT status  : FEAT-001–005 complete. FEAT-006/007/008 in-progress (branches pushed, PRs open).
+Blocking item: none — user must merge 3 PRs on GitHub in order: 006 → 007 → 008
+Docs status  : FEATURES.md updated for FEAT-006/007/008. PROGRESS.md current.
 GitHub repo  : git@github.com:Haqimzuhari/whatschat.git
-Branch rules : Ruleset active — "Restrict updates" unchecked, PRs required on development + master
-Next step    : FEAT-006 (dark/light mode toggle)
+Branch rules : Ruleset active — PRs required on development + master
+Next step    : User merges PRs, then GEN-003 (CI/CD) or GEN-005 (tests)
 ```
 
 ---
@@ -35,12 +34,12 @@ Next step    : FEAT-006 (dark/light mode toggle)
 ## Current session
 
 ```
-Date         : —
-Agent/person : —
-Goal         : —
-In-flight    : —
+Date         : 2026-05-17
+Agent/person : AGT-000 → AGT-002
+Goal         : Implement FEAT-006, FEAT-007, FEAT-008
+In-flight    : 3 PRs open — awaiting user merge on GitHub
 Blocked by   : —
-Next step    : —
+Next step    : User merges PRs in order (FEAT-006 → 007 → 008 into development)
 ```
 
 
