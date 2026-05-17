@@ -59,16 +59,20 @@ jobs:
           git checkout origin/development -- docker-compose.yml docker-compose.prod.yml 2>/dev/null || true
 
       - name: Commit and push release branch
+        id: sync
         run: |
           git add -A
           if git diff --cached --quiet; then
             echo "Nothing to sync — master is already up to date with development app files."
+            echo "pushed=false" >> $GITHUB_OUTPUT
             exit 0
           fi
           git commit -m "chore: sync app code from development — release ${{ steps.label.outputs.label }}"
           git push origin release/${{ steps.label.outputs.label }}
+          echo "pushed=true" >> $GITHUB_OUTPUT
 
       - name: Create PR to master
+        if: steps.sync.outputs.pushed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
