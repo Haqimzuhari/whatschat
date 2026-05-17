@@ -17,16 +17,16 @@
 ## Last known state
 
 ```
-Branch       : development (clean) — all 3 new feature branches pushed, PRs pending merge
-Last commit  : e921ff8 — feat(FEAT-008): auto-select country via ipapi.co geolocation
-Feature PRs  : FEAT-006/007/008 implemented and pushed — 3 PRs open, pending merge
-App status   : fully functional — FEAT-001–005 live; FEAT-006/007/008 on stacked branches
-FEAT status  : FEAT-001–005 complete. FEAT-006/007/008 in-progress (branches pushed, PRs open).
-Blocking item: none — user must merge 3 PRs on GitHub in order: 006 → 007 → 008
-Docs status  : FEATURES.md updated for FEAT-006/007/008. PROGRESS.md current.
+Branch       : development (clean) — 4 feature branches pushed, PRs open
+Last commit  : 629aa27 — docs(AGT-000): session 6 close
+Feature PRs  : FEAT-006/007/008 (stacked, merge in order) + FEAT-009 (independent) — all open
+App status   : fully functional — FEAT-001–005 live on development; FEAT-006–009 on branches
+FEAT status  : FEAT-001–005 complete. FEAT-006/007/008/009 in-progress (PRs open).
+Blocking item: none — merge PRs on GitHub: 006 → 007 → 008 → 009 (009 can merge any time)
+Docs status  : FEATURES.md + PROGRESS.md fully current as of session 7
 GitHub repo  : git@github.com:Haqimzuhari/whatschat.git
 Branch rules : Ruleset active — PRs required on development + master
-Next step    : User merges PRs, then GEN-003 (CI/CD) or GEN-005 (tests)
+Next step    : Merge open PRs, then GEN-003 (CI/CD) or GEN-005 (Vitest tests)
 ```
 
 ---
@@ -34,12 +34,12 @@ Next step    : User merges PRs, then GEN-003 (CI/CD) or GEN-005 (tests)
 ## Current session
 
 ```
-Date         : 2026-05-17
-Agent/person : AGT-000 → AGT-002
-Goal         : Implement FEAT-006, FEAT-007, FEAT-008
-In-flight    : 3 PRs open — awaiting user merge on GitHub
+Date         : —
+Agent/person : —
+Goal         : —
+In-flight    : —
 Blocked by   : —
-Next step    : User merges PRs in order (FEAT-006 → 007 → 008 into development)
+Next step    : —
 ```
 
 
@@ -49,6 +49,34 @@ Next step    : User merges PRs in order (FEAT-006 → 007 → 008 into developme
 ## Session history
 
 <!-- Oldest at the bottom, newest at the top -->
+
+### 2026-05-17 (session 7)
+
+| Field        | Value |
+|--------------|-------|
+| Agent/person | AGT-000 |
+| Branch       | docs/session-7-progress-update |
+| Goal         | Docs housekeeping — fix FEAT-008 note placement, update FEAT-001–005 to complete, update milestones |
+| Completed    | FEATURES.md: FEAT-001–005 status → complete; FEAT-001 remaining criteria ticked (FEAT-006/008 implemented on branches). PROGRESS.md: session 6 archived, last known state + milestones updated. |
+| Left off at  | 4 PRs open: FEAT-006 → 007 → 008 (stacked into development), FEAT-009 (independent into development). |
+| Next step    | Merge open PRs on GitHub in order: 006 → 007 → 008, then 009 |
+| Related      | FEAT-001, FEAT-002, FEAT-003, FEAT-004, FEAT-005, FEAT-006, FEAT-007, FEAT-008, FEAT-009 |
+
+---
+
+### 2026-05-17 (session 6)
+
+| Field        | Value |
+|--------------|-------|
+| Agent/person | AGT-000 → AGT-002 |
+| Branch       | feature/FEAT-006, 007, 008, 009 (all pushed); docs/session-6-feat-006-007-008 |
+| Goal         | Implement FEAT-006 (dark/light mode), FEAT-007 (mobile UX), FEAT-008 (geolocation), FEAT-009 (inline phone row layout) |
+| Completed    | FEAT-006: useDarkMode composable, FOUC-prevention script, sun/moon toggle. FEAT-007: scrollIntoView on PhoneInput and CountryDropdown open. FEAT-008: useGeolocation composable, ipapi.co auto-select on mount. FEAT-009: inline row layout, compact country selector (flag + dial code), PhoneInput fills remaining width. |
+| Left off at  | 4 branches pushed. 4 PRs open — awaiting merge. FEAT-009 branches off development (independent). FEAT-006/007/008 stacked. |
+| Next step    | Merge PRs in order: FEAT-006 → FEAT-007 → FEAT-008, then FEAT-009 |
+| Related      | FEAT-006, FEAT-007, FEAT-008, FEAT-009 |
+
+---
 
 ### 2026-05-16 (session 5)
 
@@ -156,9 +184,10 @@ TEMPLATE — copy this block when archiving a session:
 | Link generator | 2026-05-16 | complete | FEAT-003 — all criteria verified |
 | Copy + open tab buttons | 2026-05-16 | complete | FEAT-004 — all criteria verified |
 | Validation + toasts | 2026-05-16 | complete | FEAT-005 — all criteria verified, toast top-center |
-| Dark/light mode | — | not started | FEAT-006 |
-| Responsive + mobile keyboard fix | — | not started | FEAT-007 |
-| Geolocation auto-select | — | not started | FEAT-008 |
+| Dark/light mode | 2026-05-17 | in-progress | FEAT-006 — PR open, pending merge |
+| Responsive + mobile keyboard fix | 2026-05-17 | in-progress | FEAT-007 — PR open, pending merge |
+| Geolocation auto-select | 2026-05-17 | in-progress | FEAT-008 — PR open, pending merge |
+| Inline phone row layout | 2026-05-17 | in-progress | FEAT-009 — PR open, pending merge |
 | Unit + component tests | — | not started | GEN-005 |
 | E2E tests | — | not started | GEN-006 |
 | CI/CD pipeline | — | not started | GEN-003 |

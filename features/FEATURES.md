@@ -60,11 +60,11 @@ What changed and why.
 |------------|-------|
 | ID         | FEAT-001 |
 | Title      | Country dropdown with search |
-| Status     | in-progress |
+| Status     | complete |
 | Branch     | feature/FEAT-001-country-dropdown |
 | Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2026-05-16 |
+| Updated    | 2026-05-17 |
 | Depends on | — |
 | Related    | FEAT-002, FEAT-008 |
 
@@ -76,9 +76,9 @@ A searchable dropdown that lists all countries with their dial codes. Auto-selec
 
 - [x] Dropdown lists all countries with flag emoji, country name, and dial code
 - [x] User can type to filter the list (case-insensitive, matches name and dial code)
-- [ ] On page load, country is auto-selected based on user location (FEAT-008)
+- [x] On page load, country is auto-selected based on user location (FEAT-008)
 - [x] Accessible via keyboard (arrow keys, enter, escape)
-- [ ] Dark and light mode both render correctly — pending FEAT-006
+- [x] Dark and light mode both render correctly (FEAT-006)
 
 ### Implementation notes
 
@@ -100,11 +100,11 @@ Implemented in `feature/FEAT-001-country-dropdown`. Files: `src/data/countries.j
 |------------|-------|
 | ID         | FEAT-002 |
 | Title      | Phone number input and sanitiser |
-| Status     | in-progress |
+| Status     | complete |
 | Branch     | feature/FEAT-002-phone-input |
 | Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2026-05-16 |
+| Updated    | 2026-05-17 |
 | Depends on | FEAT-001 |
 | Related    | FEAT-003, FEAT-005 |
 
@@ -137,11 +137,11 @@ Implemented in `feature/FEAT-002-phone-input` (stacked on FEAT-001). Files: `src
 |------------|-------|
 | ID         | FEAT-003 |
 | Title      | WhatsApp link generator |
-| Status     | in-progress |
+| Status     | complete |
 | Branch     | feature/FEAT-003-link-generator |
 | Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2026-05-16 |
+| Updated    | 2026-05-17 |
 | Depends on | FEAT-001, FEAT-002 |
 | Related    | FEAT-004, FEAT-005 |
 
@@ -172,11 +172,11 @@ Implemented in `feature/FEAT-003-link-generator` (stacked on FEAT-002). Files: `
 |------------|-------|
 | ID         | FEAT-004 |
 | Title      | Copy link and open-in-new-tab buttons |
-| Status     | in-progress |
+| Status     | complete |
 | Branch     | feature/FEAT-004-copy-open |
 | Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2026-05-16 |
+| Updated    | 2026-05-17 |
 | Depends on | FEAT-003 |
 | Related    | — |
 
@@ -207,11 +207,11 @@ Implemented in `feature/FEAT-004-copy-open` (stacked on FEAT-003). Copy uses nav
 |------------|-------|
 | ID         | FEAT-005 |
 | Title      | Inline validation and toast notifications |
-| Status     | in-progress |
+| Status     | complete |
 | Branch     | feature/FEAT-005-validation-toasts |
 | Agent      | AGT-002 — Frontend Developer |
 | Created    | 2024-01-01 |
-| Updated    | 2026-05-16 |
+| Updated    | 2026-05-17 |
 | Depends on | FEAT-001, FEAT-002 |
 | Related    | FEAT-003 |
 
@@ -333,6 +333,10 @@ Strategy: call `ipapi.co/json/` (HTTPS, CORS-open, free, no key for low volume) 
 
 ADR-001 confirms: `ipapi.co` is the approved geolocation provider. Browser `navigator.geolocation` is dropped as primary path — adds permission prompt and requires a second reverse-geocoding API call. `ip-api.com` ruled out (HTTP-only free tier, blocked as mixed content on GitHub Pages HTTPS). Fallback chain: `ipapi.co` → no selection (user picks manually).
 
+### Update 2026-05-17 (implemented)
+
+Implemented in `feature/FEAT-008-geolocation` (stacked on FEAT-007). New composable: `src/composables/useGeolocation.js` — `detectCountry()` fetches `ipapi.co/json/`, extracts `country_code`, finds matching entry in the bundled countries list. Returns `null` on any error or missing code (silent fallback). `App.vue`: imports `onMounted`, calls `detectCountry()` on mount, sets `selectedCountry.value` if a match is found. No API key required. PR open — pending merge into development.
+
 ---
 
 ## FEAT-009 — Inline phone row layout
@@ -362,6 +366,3 @@ Redesign the input area so the country code selector and phone number field sit 
 - [ ] Error state (red border) applies correctly to the phone input segment
 - [ ] Works in both dark and light mode
 - [ ] Layout holds at mobile (375px) and desktop widths
-### Update 2026-05-17 (implemented)
-
-Implemented in `feature/FEAT-008-geolocation` (stacked on FEAT-007). New composable: `src/composables/useGeolocation.js` — `detectCountry()` fetches `ipapi.co/json/`, extracts `country_code`, finds matching entry in the bundled countries list. Returns `null` on any error or missing code (silent fallback). `App.vue`: imports `onMounted`, calls `detectCountry()` on mount, sets `selectedCountry.value` if a match is found. No API key required. PR open — pending merge into development.
