@@ -1,0 +1,95 @@
+name: Prepare Release to Master
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release label (e.g. v1.0.0) — leave blank to use today''s date'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  prepare-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set release label
+        id: label
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            echo "label=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            echo "label=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create release branch from master
+        run: |
+          git checkout master
+          git pull origin master
+          git checkout -b release/${{ steps.label.outputs.label }}
+
+      - name: Sync app files from development
+        run: |
+          git checkout origin/development -- \
+            src/ \
+            public/ \
+            index.html \
+            vite.config.js \
+            tailwind.config.js \
+            postcss.config.js \
+            package.json \
+            package-lock.json \
+            .gitignore \
+            .github/
+          git checkout origin/development -- docker-compose.yml docker-compose.prod.yml 2>/dev/null || true
+
+      - name: Commit and push release branch
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to sync — master is already up to date with development app files."
+            exit 0
+          fi
+          git commit -m "chore: sync app code from development — release ${{ steps.label.outputs.label }}"
+          git push origin release/${{ steps.label.outputs.label }}
+
+      - name: Create PR to master
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          LABEL="${{ steps.label.outputs.label }}"
+          cat > /tmp/pr-body.md << PREOF
+          ## Release ${LABEL}
+
+          Automated sync of app source files from \`development\` → \`master\`.
+
+          **Included:** src/, public/, index.html, vite.config.js, tailwind.config.js, postcss.config.js, package.json, package-lock.json, docker-compose files, .github/
+
+          **Excluded:** agents/, progress/, features/, general/, hotfixes/, PROJECT.md
+
+          ## Checklist before merging
+          - [ ] Review diff — confirm no doc files are included
+          - [ ] Merge PR
+          - [ ] Watch the Deploy workflow complete in Actions tab
+          - [ ] Confirm live Pages URL loads correctly
+
+          🤖 Generated with [Claude Code](https://claude.com/claude-code)
+          PREOF
+          gh pr create \
+            --base master \
+            --head "release/${LABEL}" \
+            --title "release: ${LABEL}" \
+            --body-file /tmp/pr-body.md
