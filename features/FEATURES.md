@@ -325,3 +325,33 @@ Strategy: call `ipapi.co/json/` (HTTPS, CORS-open, free, no key for low volume) 
 ### Update 2026-05-16
 
 ADR-001 confirms: `ipapi.co` is the approved geolocation provider. Browser `navigator.geolocation` is dropped as primary path — adds permission prompt and requires a second reverse-geocoding API call. `ip-api.com` ruled out (HTTP-only free tier, blocked as mixed content on GitHub Pages HTTPS). Fallback chain: `ipapi.co` → no selection (user picks manually).
+
+---
+
+## FEAT-009 — Inline phone row layout
+
+| Field      | Value |
+|------------|-------|
+| ID         | FEAT-009 |
+| Title      | Inline phone row layout |
+| Status     | in-progress |
+| Branch     | feature/FEAT-009-inline-phone-row |
+| Agent      | AGT-002 — Frontend Developer |
+| Created    | 2026-05-17 |
+| Updated    | 2026-05-17 |
+| Depends on | FEAT-001, FEAT-002 |
+| Related    | FEAT-007 |
+
+### Description
+
+Redesign the input area so the country code selector and phone number field sit on the same row. The country selector (compact — flag + dial code only) anchors the left side; the phone input fills the remaining width. Removes wasted vertical space from the stacked layout.
+
+### Acceptance criteria
+
+- [ ] Country selector and phone input are on the same horizontal row
+- [ ] Country selector trigger shows flag + dial code only (no country name) — full searchable list still opens on click
+- [ ] Phone input fills remaining row width
+- [ ] Both inputs share a visually connected border (pill/grouped input style)
+- [ ] Error state (red border) applies correctly to the phone input segment
+- [ ] Works in both dark and light mode
+- [ ] Layout holds at mobile (375px) and desktop widths

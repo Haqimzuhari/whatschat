@@ -4,6 +4,7 @@ import { buildCountryList, filterCountries } from '../utils/countryUtils.js'
 
 const props = defineProps({
   modelValue: { type: Object, default: null },
+  inline: { type: Boolean, default: false },
 })
 const emit = defineEmits(['update:modelValue'])
 
@@ -73,20 +74,34 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside))
 
 <template>
   <div ref="rootEl" class="relative">
-    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+    <label v-if="!inline" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
       Country
     </label>
     <button
       type="button"
       @click="toggle"
-      class="w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors"
+      :class="[
+        'flex items-center gap-1.5 px-3 py-2.5 bg-white dark:bg-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:z-10 transition-colors',
+        inline
+          ? 'rounded-l-lg border border-r-0 border-gray-300 dark:border-gray-600 whitespace-nowrap shrink-0'
+          : 'w-full justify-between rounded-lg border border-gray-300 dark:border-gray-600'
+      ]"
     >
-      <span v-if="modelValue" class="flex items-center gap-2 text-gray-900 dark:text-white">
-        <span>{{ modelValue.flag }}</span>
-        <span>{{ modelValue.name }}</span>
-        <span class="text-gray-400">+{{ modelValue.dialCode }}</span>
-      </span>
-      <span v-else class="text-gray-400">Select country</span>
+      <template v-if="inline">
+        <span v-if="modelValue" class="flex items-center gap-1.5 text-gray-900 dark:text-white">
+          <span>{{ modelValue.flag }}</span>
+          <span class="font-medium">+{{ modelValue.dialCode }}</span>
+        </span>
+        <span v-else class="text-gray-400">+--</span>
+      </template>
+      <template v-else>
+        <span v-if="modelValue" class="flex items-center gap-2 text-gray-900 dark:text-white">
+          <span>{{ modelValue.flag }}</span>
+          <span>{{ modelValue.name }}</span>
+          <span class="text-gray-400">+{{ modelValue.dialCode }}</span>
+        </span>
+        <span v-else class="text-gray-400">Select country</span>
+      </template>
       <svg
         class="w-4 h-4 text-gray-400 flex-shrink-0 transition-transform duration-150"
         :class="{ 'rotate-180': isOpen }"
@@ -98,7 +113,7 @@ onUnmounted(() => document.removeEventListener('mousedown', onClickOutside))
 
     <div
       v-if="isOpen"
-      class="absolute z-10 mt-1 w-full bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg"
+      :class="['absolute z-10 mt-1 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg', inline ? 'min-w-[280px]' : 'w-full']"
     >
       <div class="p-2 border-b border-gray-100 dark:border-gray-600">
         <input

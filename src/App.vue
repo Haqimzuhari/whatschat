@@ -69,8 +69,13 @@ function openLink() {
         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Generate a WhatsApp link instantly</p>
       </div>
       <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 space-y-4">
-        <CountryDropdown v-model="selectedCountry" />
-        <PhoneInput v-model="rawPhone" :error="phoneError" />
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone number</label>
+          <div class="flex">
+            <CountryDropdown v-model="selectedCountry" inline />
+            <PhoneInput v-model="rawPhone" :error="phoneError" inline />
+          </div>
+        </div>
 
         <button
           type="button"
