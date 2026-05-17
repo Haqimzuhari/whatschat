@@ -116,12 +116,23 @@ Direct pushes to `master` or `development` are enforced by GitHub branch protect
 3. Push branch to GitHub
    git push -u origin feature/FEAT-NNN-short-slug
 
-4. Open a Pull Request on GitHub
-   Base: development  ←  Compare: feature/FEAT-NNN-short-slug
-   Title: follows commit message convention
-   Review the diff, confirm it looks right
+4. Raise the PR using gh CLI (no manual GitHub navigation needed)
+   gh pr create \
+     --base development \
+     --head feature/FEAT-NNN-short-slug \
+     --title "feat(FEAT-NNN): description" \
+     --body "$(cat <<'EOF'
+   ## Summary
+   - what changed and why
 
-5. Merge the PR on GitHub
+   ## Test plan
+   - [ ] what to verify
+
+   🤖 Generated with Claude Code
+   EOF
+   )"
+
+5. User merges the PR on GitHub
    Use "Squash and merge" or "Merge commit" — be consistent
    Delete the branch after merge (GitHub offers this automatically)
 

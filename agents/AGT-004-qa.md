@@ -63,3 +63,4 @@ Set up and maintain the test suite. Write unit, component, and E2E tests that gi
 - E2E tests run against `http://localhost:5173` — dev server must be running
 - Mark GEN-005/GEN-006 acceptance criteria only when tests pass in CI, not just locally
 - Append `### Update YYYY-MM-DD` to the relevant GEN entry after each test session
+- After pushing a branch, raise the PR using `gh pr create` — do not ask the user to open it manually on GitHub

@@ -63,3 +63,4 @@ Never commit secrets to the repository. All secrets are injected at build time v
 - Only deploy from `master` — never from feature or development branches
 - Verify the live URL manually after every first deploy and after any config change
 - Append `### Update YYYY-MM-DD` to GEN-004 after each deployment action
+- After pushing a branch, raise the PR using `gh pr create` — do not ask the user to open it manually on GitHub

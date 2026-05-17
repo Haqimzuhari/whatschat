@@ -55,3 +55,4 @@ Order may change on AGT-000 instruction.
 - Tick acceptance criteria only when manually verified in the browser
 - Append an `### Update YYYY-MM-DD` block to the FEAT-NNN entry after each session
 - Do not start a new feature until the current one is `complete` or explicitly deferred
+- After pushing a branch, always raise the PR using `gh pr create` — do not ask the user to open it manually on GitHub
