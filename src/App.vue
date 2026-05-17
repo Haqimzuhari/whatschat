@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import CountryDropdown from './components/CountryDropdown.vue'
 import PhoneInput from './components/PhoneInput.vue'
 import ToastContainer from './components/ToastContainer.vue'
@@ -7,6 +7,7 @@ import { sanitisePhone, hasLetters } from './utils/phoneUtils.js'
 import { buildLink } from './utils/linkUtils.js'
 import { useToast } from './composables/useToast.js'
 import { useDarkMode } from './composables/useDarkMode.js'
+import { detectCountry } from './composables/useGeolocation.js'
 
 const selectedCountry = ref(null)
 const rawPhone = ref('')
@@ -15,6 +16,11 @@ const copyLabel = ref('Copy link')
 
 const { toasts, addToast, dismissToast } = useToast()
 const { isDark, toggle: toggleDark } = useDarkMode()
+
+onMounted(async () => {
+  const country = await detectCountry()
+  if (country) selectedCountry.value = country
+})
 
 const phoneError = computed(() => {
   if (hasLetters(rawPhone.value)) return 'Phone number must contain digits only'
