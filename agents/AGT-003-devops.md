@@ -58,10 +58,23 @@ Own all infrastructure that is not hosting. This covers Docker setup (dev and pr
 4. Push the branch
    git push -u origin chore/GEN-NNN-short-slug
 
-5. Open a PR on GitHub
-   Base: development  ←  Compare: chore/GEN-NNN-short-slug
+5. Raise the PR using gh CLI (no manual GitHub navigation needed)
+   gh pr create \
+     --base development \
+     --head chore/GEN-NNN-short-slug \
+     --title "chore(GEN-NNN): description" \
+     --body "$(cat <<'EOF'
+   ## Summary
+   - bullet points
 
-6. Merge the PR on GitHub — delete branch after merge
+   ## Test plan
+   - [ ] test items
+
+   🤖 Generated with Claude Code
+   EOF
+   )"
+
+6. User merges the PR on GitHub — delete branch after merge
 
 7. Pull development locally
    git checkout development
@@ -75,10 +88,21 @@ Own all infrastructure that is not hosting. This covers Docker setup (dev and pr
 1. git checkout master && git pull origin master
 2. git checkout -b hotfix/HF-NNN-short-slug
 3. Fix, commit, push
-4. PR → master, merge
-5. PR → development, merge (keep in sync)
-6. Delete hotfix branch
+4. gh pr create --base master --head hotfix/HF-NNN-short-slug --title "..." --body "..."
+5. User merges PR → master
+6. gh pr create --base development --head hotfix/HF-NNN-short-slug --title "..." --body "..."
+7. User merges PR → development (keep in sync)
+8. Delete hotfix branch
 ```
+
+### gh CLI setup (one-time, device level)
+
+```
+brew install gh
+gh auth login   # opens browser — sign in with GitHub account
+```
+
+Required once per machine. After that, all agents can raise PRs from the terminal.
 
 ### Branch naming
 

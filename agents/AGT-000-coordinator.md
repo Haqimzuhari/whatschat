@@ -71,6 +71,29 @@ Apply all five updates in the same commit where possible.
 
 All changes go through a PR into `development`. No direct pushes — branch protection is enforced on GitHub.
 
+### Raising PRs
+
+Use `gh pr create` from the terminal — do not ask the user to open PRs manually on GitHub. The user's role is merge-only.
+
+```
+gh pr create \
+  --base development \
+  --head <branch> \
+  --title "<commit-convention title>" \
+  --body "$(cat <<'EOF'
+## Summary
+- what changed and why
+
+## Test plan
+- [ ] what to verify
+
+🤖 Generated with Claude Code
+EOF
+)"
+```
+
+Prerequisite: `gh` CLI installed and authenticated (`gh auth login`) once per machine.
+
 ---
 
 ## Rules
